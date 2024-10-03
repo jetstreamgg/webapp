@@ -21,7 +21,7 @@ export default ({ mode }: { mode: string }) => {
   const VERCEL_PREVIEW_URL = VERCEL ? 'https://vercel.live/' : '';
   const VERCEL_CONNECT = VERCEL ? 'https://vercel.live wss://ws-us3.pusher.com' : '';
   const VERCEL_IMG = VERCEL ? 'https://vercel.live https://vercel.com' : '';
-  const STYLE_SRC_VALUES = VERCEL ? 'https://vercel.live/*' : PROD_STYLE_SRC_VALUES;
+  const STYLE_SRC_VALUES = VERCEL ? "https://vercel.live 'unsafe-inline'" : PROD_STYLE_SRC_VALUES;
   const VERCEL_FONT = VERCEL ? 'https://vercel.live https://assets.vercel.com' : '';
 
   // The missing 'script-src' sha256 you see in the logs when developing is most likely due to the react refresh script tag injected automatically for dev purposes.
