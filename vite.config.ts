@@ -17,7 +17,7 @@ export default ({ mode }: { mode: string }) => {
 
   const PROD_STYLE_SRC_VALUES =
     "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-Y/huXlwoYkVyQlxwSVcCi1RCDGDCSVBzDt0hYP9qlTc=' 'sha256-As28pNoabqy5Dm8GUYYMZv9gCVxIw4mT8rz2JbdeZjU=' 'sha256-v7ZMAlFoy9yxllQHKlsbkCvWNO+X3Xz65Wu2wkwwVaY=' 'sha256-T+ow83qKS6RCXyWfA3I6D/4E+GwaV5INwNCKNfug+Tg=' 'sha256-jdWOF+oc0vV3BxDwETcLN1ufCz+m+CXvn2h7KTO/eio='";
-  const VERCEL = process.env.VERCEL === '1';
+  const VERCEL = process.env.VERCEL === '1' && process.env.VERCEL_ENV === 'preview';
   const VERCEL_PREVIEW_URL = VERCEL ? 'https://vercel.live/' : '';
   const VERCEL_CONNECT = VERCEL ? 'https://vercel.live wss://ws-us3.pusher.com' : '';
   const VERCEL_IMG = VERCEL ? 'https://vercel.live https://vercel.com' : '';
