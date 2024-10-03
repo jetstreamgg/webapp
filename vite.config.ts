@@ -66,12 +66,11 @@ export default ({ mode }: { mode: string }) => {
 
   // Need to remove whitespaces otherwise the app won't build due to unsupported characters
   const parsedCSP = CONTENT_SECURITY_POLICY.replace(/\n/g, '');
-  console.log('🚀 ~ parsedCSP:', parsedCSP);
 
   return defineConfig({
     server: {
       // vite default is 5173
-      port: 3001
+      port: 3000
     },
     preview: {
       port: 3000
@@ -222,4 +221,22 @@ const VERCEL_HASHES = `
 'sha256-8rOb2UMVHRpubW8LiiSE5o/eZq0vCs7+xu2y2NbWuQ8=' 
 'sha256-Bv1f3TGaDfqVIsc6QeoraknDndF1HNJ2lKfstuYsrcg=' 
 'sha256-H2a5XI+YQTja3By2bvwdqItgvp2q+IiPxqXYH3/m1QI=' 
+'sha256-KEdfhpM89HUbwnyixIwWKkXYwNARQH1y6kF37cla1+8=' 
+'sha256-817LDF4CkGQji9VAfsCKcM8rbUiJIB3jGRlAgpC02rs=' 
+'sha256-zOQ34sdWEHG0nbyo2ALpdb7jqq6MTO07Zsep9Bnxl0o=' 
+'sha256-Kwz9xwD5pEHWfAyXgd6bP2EHWg+jp3tjDFcMNFjHcWc=' 
+'sha256-REI2WBETvg8kovxbg0Jan/Xgn8XojUuqNSiXgzCzKIY=' 
+'sha256-Sg/Wj8dCzgvW8vboR4HRBCmLZFzlZTJcssluJ/UHMQY=' 
+'sha256-gGIwa9ahVmXw4Apk14wrl1X9t0PteAg1IxhJV5hbgGs=' 
+'sha256-1JfhWHUE5+b0XsLm5m/v1H9jGbA63QUGoZtwp4XZn3Q=' 
+'sha256-C6WMmecUyn8f5PEkpKNTX+5E+fBWXYGoGdDsszEAxsU=' 
+'sha256-CZQqZX5HdwvIRhSbdwjBaqEaszVQmAkArZdGena2S6M=' 
+'sha256-vLfnqukLUybfls+SFzTLu5HPdNPENvfblOsoRw7gfNI=' 
+'sha256-v+/BoT6PAiGvzTl3qfHRn53URC4qU6/WsYYHyRqGBV4=' 
+'sha256-UB1c0fPPuRCbJ77h1yB1iOAAMtm748uiIYfR1hzSlVw=' 
+'sha256-rZwb5Eznubs1EUU9Hn5wDuVSzjmGnqLEKHQMPE6uWq4=' 
+'sha256-zOQ34sdWEHG0nbyo2ALpdb7jqq6MTO07Zsep9Bnxl0o=' 
+'sha256-b8CBTmcrWi5uIIVMkahkOslV9+KL0jJzmprhfSdMVxY=' 
+'sha256-7/eC6amVWISVU8NHWVYEpKE253gfSQY2SAl4eAwdvHk=' 
+'sha256-q0B90THFNvDKhqRDRAaQH/PCRJsv61X43qsvfxKl1lg=' 
 `;
