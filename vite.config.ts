@@ -21,12 +21,12 @@ export default ({ mode }: { mode: string }) => {
   const VERCEL_IMG = VERCEL ? 'https://vercel.live https://vercel.com' : '';
 
   // Option 1: using vercel tooltip hashes
-  const STYLE_SRC_VALUES = VERCEL
-    ? `https://vercel.live ${VERCEL_HASHES} ${PROD_STYLE_SRC_VALUES}`
-    : PROD_STYLE_SRC_VALUES;
+  // const STYLE_SRC_VALUES = VERCEL
+  //   ? `https://vercel.live ${VERCEL_HASHES} ${PROD_STYLE_SRC_VALUES}`
+  //   : PROD_STYLE_SRC_VALUES;
 
   // Option 2: using vercel recommended values but adding 'unsafe-inline'
-  // const STYLE_SRC_VALUES = VERCEL ? "https://vercel.live 'unsafe-inline'" : PROD_STYLE_SRC_VALUES;
+  const STYLE_SRC_VALUES = VERCEL ? "https://vercel.live 'unsafe-inline'" : PROD_STYLE_SRC_VALUES;
 
   const VERCEL_FONT = VERCEL ? 'https://vercel.live https://assets.vercel.com' : '';
 
@@ -123,6 +123,7 @@ export default ({ mode }: { mode: string }) => {
 const PROD_STYLE_SRC_VALUES =
   "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-Y/huXlwoYkVyQlxwSVcCi1RCDGDCSVBzDt0hYP9qlTc=' 'sha256-As28pNoabqy5Dm8GUYYMZv9gCVxIw4mT8rz2JbdeZjU=' 'sha256-v7ZMAlFoy9yxllQHKlsbkCvWNO+X3Xz65Wu2wkwwVaY=' 'sha256-T+ow83qKS6RCXyWfA3I6D/4E+GwaV5INwNCKNfug+Tg=' 'sha256-jdWOF+oc0vV3BxDwETcLN1ufCz+m+CXvn2h7KTO/eio='";
 
+/*
 const VERCEL_HASHES = `
 'sha256-V2/A5EGJq4Ocup+QlPJyOBlZ8rWNajajv6ewISb/tZI=' 
 'sha256-AbpHGcgLb+kRsJGnwFEktk7uzpZOCcBY74+YBdrKVGs=' 
@@ -275,3 +276,4 @@ const VERCEL_HASHES = `
 'sha256-+tEpTVfatwsSHBlQCxaniMLCnI4455jxyIM2F1ouK7U=' 
 'sha256-/iF0k6dLIJ9LRdSg6ajLthaRblAJ27qiGqWpz/t/aBg=' 
 `;
+*/
