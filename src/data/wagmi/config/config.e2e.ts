@@ -6,7 +6,7 @@ import { mock } from 'wagmi/connectors';
 const tenderlyTestChain = getTestTenderlyChain();
 
 //this address is able to send transactions on the tenderly vnet via the wagmi mock
-const TEST_WALLET_ADDRESS = '0x869E31890A3E8849f8a3cec14d9BB19b97e5bC9C';
+const TEST_WALLET_ADDRESS = '0xFebC63589D8a3bc5CD97E86C174A836c9caa6DEe';
 
 export const mockWagmiConfig = createConfig({
   chains: [tenderlyTestChain],

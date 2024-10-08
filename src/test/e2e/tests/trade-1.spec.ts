@@ -3,7 +3,7 @@ import '../mock-rpc-call.ts';
 import '../mock-vpn-check.ts';
 import { getMinimumOutput } from '../utils/trade.ts';
 import { setErc20Balance, setEthBalance } from '../utils/setBalance.ts';
-import { TENDERLY_CHAIN_ID } from '../utils/constants.ts';
+import { TENDERLY_CHAIN_ID } from '@/data/wagmi/config/testTenderlyChain.ts';
 import { usdtAddress } from '@jetstreamgg/hooks';
 import { connectMockWalletAndAcceptTerms } from '../utils/connectMockWalletAndAcceptTerms.ts';
 

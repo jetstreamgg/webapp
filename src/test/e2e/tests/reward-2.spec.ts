@@ -4,7 +4,7 @@ import '../mock-vpn-check.ts';
 import { approveOrPerformAction } from '../utils/approveOrPerformAction.ts';
 import { setErc20Balance } from '../utils/setBalance.ts';
 import { usdsAddress } from '@jetstreamgg/hooks';
-import { TENDERLY_CHAIN_ID } from '../utils/constants.ts';
+import { TENDERLY_CHAIN_ID } from '@/data/wagmi/config/testTenderlyChain.ts';
 import { interceptAndRejectTransactions, revertInterception } from '../utils/rejectTransaction.ts';
 import { distributeRewards } from '../utils/distributeRewards.ts';
 import { withdrawAllAndReset } from '../utils/rewards.ts';
@@ -105,6 +105,7 @@ test('Details pane shows correct history data and layout subsections', async ({ 
     .getByText('TVL', { exact: true })
     .locator('xpath=ancestor::div[1]')
     .getByText(/^\d.*USDS$/)
+    .first()
     .innerText();
   const suppliedAmountDetails = await page
     .getByRole('heading', { name: 'USDS supplied', exact: true })
