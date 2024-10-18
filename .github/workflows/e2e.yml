@@ -64,6 +64,7 @@ jobs:
         run: pnpm run e2e:no-vnet ${{ matrix.test }}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          VITE_ENV_NAME: development
 
       - name: Teardown VNet (if required)
         if: ${{always() && matrix.vnet}}
