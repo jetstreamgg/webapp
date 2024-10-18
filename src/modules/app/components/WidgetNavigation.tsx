@@ -13,6 +13,7 @@ import { QueryParams, mapIntentToQueryParam } from '@/lib/constants';
 import { LinkedActionWrapper } from '@/modules/ui/components/LinkedActionWrapper';
 import { useSearchParams } from 'react-router-dom';
 import { deleteSearchParams } from '@/modules/utils/deleteSearchParams';
+import { cn } from '@/lib/utils';
 
 interface WidgetNavigationProps {
   widgetContent: WidgetContent;
@@ -118,14 +119,14 @@ export function WidgetNavigation({ widgetContent, intent, children }: WidgetNavi
       <motion.div layout transition={{ layout: { duration: 0 } }}>
         {/* TODO justify-around only when restricted */}
         <TabsList
-          className={`${isMobile ? 'space-x-2' : ''} sticky top-0 z-20 flex w-full justify-around rounded-none rounded-t-3xl border-b p-3 backdrop-blur-2xl md:border-none md:p-0 md:backdrop-filter-none`}
+          className={`${isMobile ? 'space-x-1' : ''} sticky top-0 z-20 flex w-full justify-around rounded-none rounded-t-3xl border-b p-3 backdrop-blur-2xl md:border-none md:p-0 md:backdrop-filter-none`}
         >
           {widgetContent.map(([widgetIntent, label, icon]) => (
             <TabsTrigger
               key={widgetIntent}
               variant="icons"
               value={widgetIntent}
-              className={intent === widgetIntent ? tabGlowClasses : ''}
+              className={intent === widgetIntent ? cn(tabGlowClasses, 'px-1 md:px-2') : 'px-1 md:px-2'}
             >
               {!isMobile && icon({ color: intent === widgetIntent ? 'white' : 'rgba(198, 194, 255, 0.8)' })}
               <Text variant="small">

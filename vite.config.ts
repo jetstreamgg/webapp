@@ -30,6 +30,7 @@ export default ({ mode }: { mode: string }) => {
       ${RPC_PROVIDER_SEPOLIA}
       https://virtual.mainnet.rpc.tenderly.co
       https://rpc.sepolia.org
+      https://vote.makerdao.com
       https://query-subgraph-testnet.sky.money
       https://query-subgraph-staging.sky.money
       https://query-subgraph.sky.money
@@ -38,6 +39,7 @@ export default ({ mode }: { mode: string }) => {
       https://api.sky.money
       https://api.ipify.org
       https://info-sky.blockanalitica.com
+      https://sky-tenderly.blockanalitica.com
       https://api.cow.fi/
       wss://relay.walletconnect.com
       wss://www.walletlink.org

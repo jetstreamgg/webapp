@@ -200,6 +200,7 @@ export type Data = {
 interface ChartProps {
   data: Data[];
   symbol?: string;
+  prefix?: string;
   isPercentage?: boolean;
   onTimeFrameChange?: (tf: TimeFrame) => void;
   isLoading?: boolean;
@@ -220,6 +221,7 @@ function CardTitleContent({
   isLarge,
   isPercentage,
   symbol,
+  prefix,
   percentage,
   formattedPercentage,
   isZeroPercentage,
@@ -229,6 +231,7 @@ function CardTitleContent({
   isLarge: boolean;
   isPercentage: boolean;
   symbol?: string;
+  prefix?: string;
   percentage: number;
   formattedPercentage: string;
   isZeroPercentage: boolean;
@@ -260,6 +263,7 @@ function CardTitleContent({
         >
           <HStack gap={2} className="h-8 items-end justify-start p-0">
             <Text className="text-xl lg:text-2xl">
+              {prefix || ''}
               {`${formatNumber(data[data.length - 1]?.value || 0, {
                 maxDecimals: 2,
                 compact: true
@@ -284,6 +288,7 @@ function ChartContent({
   data,
   isLarge,
   symbol,
+  prefix,
   isPercentage,
   activeTimeframe,
   isLoading,
@@ -293,6 +298,7 @@ function ChartContent({
   isLarge: boolean;
   isPercentage: boolean;
   symbol?: string;
+  prefix?: string;
   isLoading: boolean;
   activeTimeframe: TimeFrame;
   error?: Error | null;
@@ -340,6 +346,7 @@ function ChartContent({
                 symbol={symbol}
                 isPercentage={isPercentage}
                 labelFormatter={date => formatDate(date, activeTimeframe)}
+                prefix={prefix}
               />
             }
           />
@@ -362,6 +369,7 @@ function ChartContent({
 export function Chart({
   data,
   symbol,
+  prefix,
   onTimeFrameChange,
   isPercentage = false,
   isLoading = false,
@@ -423,6 +431,7 @@ export function Chart({
                 isLarge={isLarge}
                 isPercentage={isPercentage}
                 symbol={symbol}
+                prefix={prefix}
                 percentage={percentage}
                 formattedPercentage={formattedPercentage}
                 isZeroPercentage={isZeroPercentage}
@@ -443,6 +452,7 @@ export function Chart({
           data={data}
           isLarge={isLarge}
           symbol={symbol}
+          prefix={prefix}
           isPercentage={isPercentage}
           activeTimeframe={activeTimeframe}
           isLoading={isLoading}

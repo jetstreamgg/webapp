@@ -17,11 +17,13 @@ interface BalanceCardProps {
     name: string;
   };
   label?: string;
+  toggle?: React.ReactNode;
   error?: Error | null;
 }
 
 interface BaseBalanceCardProps extends BalanceCardProps {
   label: string;
+  toggle?: React.ReactNode;
   icon: React.ReactElement;
   iconEmpty: React.ReactElement;
   className?: string;
@@ -30,6 +32,7 @@ interface BaseBalanceCardProps extends BalanceCardProps {
 
 function BaseBalanceCard({
   label,
+  toggle,
   balance,
   icon,
   iconEmpty,
@@ -58,7 +61,7 @@ function BaseBalanceCard({
           error={error ? error : null}
           errorComponent={<ErrorComponent label={label} />}
         >
-          <BaseBalanceCardContent label={label}>
+          <BaseBalanceCardContent label={label} toggle={toggle}>
             <TokenIconWithBalance
               token={token}
               balance={typeof balance === 'string' ? balance : formatBigInt(balance || 0n)}
@@ -71,12 +74,29 @@ function BaseBalanceCard({
   );
 }
 
-function BaseBalanceCardContent({ label, children }: { label: string; children: React.ReactNode }) {
+function BaseBalanceCardContent({
+  label,
+  toggle,
+  children
+}: {
+  label: string;
+  toggle?: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
     <>
-      <CardTitle variant="stats" className="mb-2">
-        {label}
-      </CardTitle>
+      {toggle ? (
+        <div className="flex w-full gap-2">
+          <CardTitle variant="stats" className="mb-2">
+            {label}
+          </CardTitle>
+          {toggle}
+        </div>
+      ) : (
+        <CardTitle variant="stats" className="mb-2">
+          {label}
+        </CardTitle>
+      )}
       {children}
     </>
   );
@@ -153,6 +173,46 @@ export function RewardsBalanceCard({
       balance={balance}
       icon={<Rewards />}
       iconEmpty={<RewardsEmpty />}
+      isLoading={isLoading}
+      token={token}
+      error={error}
+    />
+  );
+}
+
+export function SealSealedCard({
+  balance,
+  isLoading,
+  token,
+  label,
+  error
+}: BalanceCardProps): React.ReactElement {
+  return (
+    <BaseBalanceCard
+      label={label || t`USDS borrowed`}
+      balance={balance}
+      icon={<Supplied />}
+      iconEmpty={<SuppliedEmpty />}
+      isLoading={isLoading}
+      token={token}
+      error={error}
+    />
+  );
+}
+
+export function SealBorrowedCard({
+  balance,
+  isLoading,
+  token,
+  label,
+  error
+}: BalanceCardProps): React.ReactElement {
+  return (
+    <BaseBalanceCard
+      label={label || t`USDS borrowed`}
+      balance={balance}
+      icon={<Withdrawn />}
+      iconEmpty={<WithdrawnEmpty />}
       isLoading={isLoading}
       token={token}
       error={error}
