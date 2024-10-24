@@ -1,6 +1,6 @@
 import { ExternalLink } from './ExternalLink';
 import { Text } from './Typography';
-import { getFooterLinks } from '@/lib/utils';
+import { getFooterLinks, sanitizeUrl } from '@/lib/utils';
 
 export function FooterLinks() {
   const footerLinks = getFooterLinks();
@@ -13,7 +13,7 @@ export function FooterLinks() {
           <ExternalLink
             key={link.url || `link-${i}`}
             showIcon={false}
-            href={link.url}
+            href={sanitizeUrl(link.url)}
             className={externalClass}
           >
             <Text variant="captionSm" className="text-white">

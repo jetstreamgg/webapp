@@ -1,3 +1,4 @@
+import { sanitizeUrl } from '@/lib/utils';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 
@@ -21,7 +22,7 @@ export const ConnectedProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const checkTermsAcceptance = async (address: string) => {
     setIsCheckingTerms(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_TERMS_ENDPOINT}/check`, {
+      const response = await fetch(sanitizeUrl(`${import.meta.env.VITE_TERMS_ENDPOINT}/check`) || '', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

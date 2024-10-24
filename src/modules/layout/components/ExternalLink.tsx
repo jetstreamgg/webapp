@@ -14,7 +14,7 @@ export function ExternalLink({
   iconClassName,
   iconColor
 }: {
-  href: string;
+  href?: string;
   children?: React.ReactNode;
   showIcon?: boolean;
   iconSize?: number;

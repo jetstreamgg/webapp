@@ -5,6 +5,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Unavailable } from '@/modules/icons';
 import { ExternalLink } from '@/modules/layout/components/ExternalLink';
 import { LoadingSpinner } from '@/modules/ui/components/LoadingSpinner';
+import { sanitizeUrl } from '@/lib/utils';
 
 type AuthData = {
   addressAllowed?: boolean;
@@ -65,7 +66,12 @@ const getMessage = (authData: AuthData, vpnData: VpnData, termsLink: any[]): str
       <Trans>
         Your access is restricted. For more information, please refer to our{' '}
         {Array.isArray(termsLink) && termsLink.length > 0 ? (
-          <ExternalLink skipConfirm className="text-textEmphasis" showIcon={false} href={termsLink[0].url}>
+          <ExternalLink
+            skipConfirm
+            className="text-textEmphasis"
+            showIcon={false}
+            href={sanitizeUrl(termsLink[0].url)}
+          >
             {termsLink[0].name}
           </ExternalLink>
         ) : (

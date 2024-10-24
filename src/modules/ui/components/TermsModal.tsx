@@ -14,6 +14,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { CheckedState } from '@radix-ui/react-checkbox';
 import { useInView } from 'react-intersection-observer';
 import { ExternalLink } from '@/modules/layout/components/ExternalLink';
+import { sanitizeUrl } from '@/lib/utils';
 
 export function TermsModal() {
   const { closeModal, isModalOpen, openModal } = useTermsModal();
@@ -33,7 +34,7 @@ export function TermsModal() {
     };
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_TERMS_ENDPOINT}/add`, {
+      const response = await fetch(sanitizeUrl(`${import.meta.env.VITE_TERMS_ENDPOINT}/add`) || '', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

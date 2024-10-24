@@ -5,6 +5,7 @@ import { useConfigContext } from '@/modules/config/hooks/useConfigContext';
 import { Button } from '@/components/ui/button';
 import { Warning } from '@/modules/icons/Warning';
 import { ExternalLink } from './ExternalLink';
+import { sanitizeUrl } from '@/lib/utils';
 
 export const ExternalLinkModal: React.FC = () => {
   const {
@@ -52,7 +53,7 @@ export const ExternalLinkModal: React.FC = () => {
                 skipConfirm
                 className="text-textEmphasis"
                 showIcon={false}
-                href={termsLink[0].url}
+                href={sanitizeUrl(termsLink[0].url)}
               >
                 {termsLink[0].name}
               </ExternalLink>
