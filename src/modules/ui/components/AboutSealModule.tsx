@@ -26,7 +26,7 @@ export const AboutSealModule = () => {
     >
       <div className="w-[80%] space-y-2 lg:w-1/2">
         <Heading>
-          <Trans>About Seal module</Trans>
+          <Trans>About the Seal Engine</Trans>
         </Heading>
         <Text variant="small">
           <Trans>

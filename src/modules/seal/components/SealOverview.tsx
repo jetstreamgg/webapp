@@ -30,7 +30,7 @@ export function SealOverview() {
 
   return (
     <DetailSectionWrapper>
-      <DetailSection title={t`Seal Overview`}>
+      <DetailSection title={t`Seal Engine Overview`}>
         <DetailSectionRow>
           <HStack gap={2} className="scrollbar-thin w-full overflow-auto">
             <StatsCard
@@ -83,7 +83,7 @@ export function SealOverview() {
         </DetailSectionRow>
       </DetailSection>
       {isConnectedAndAcceptedTerms && (
-        <DetailSection title={t`Your Seal transaction history`}>
+        <DetailSection title={t`Your Seal Engine transaction history`}>
           <DetailSectionRow>
             <SealHistory />
           </DetailSectionRow>
