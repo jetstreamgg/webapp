@@ -29,12 +29,12 @@ export function DetailsSwitcher(): JSX.Element {
         <div>
           <Toggle
             variant="singleSwitcher"
-            className="hidden h-10 w-10 rounded-xl pb-2 pl-3 pr-[14px] pt-[9px] md:block"
+            className="hidden h-10 w-10 rounded-xl md:flex"
             pressed={detailsParam}
             onPressedChange={handleSwitch}
             aria-label="Toggle details"
           >
-            <Metrics width={20} height={20} />
+            <Metrics width={17} height={17} />
           </Toggle>
         </div>
       </TooltipTrigger>

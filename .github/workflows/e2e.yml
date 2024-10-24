@@ -20,6 +20,8 @@ jobs:
             vnet: true
           - test: savings.spec
             vnet: true
+          - test: seal.spec
+            vnet: true
           # - test: trade-1.spec
           #   vnet: true
           # - test: trade-2.spec

@@ -1,5 +1,5 @@
 import { BalancesWidget } from '@jetstreamgg/widgets';
-import { Balances, Upgrade, Trade, RewardsModule, Savings } from '../../icons';
+import { Balances, Upgrade, Trade, RewardsModule, Savings, Seal } from '../../icons';
 import { Intent } from '@/lib/enums';
 import { useLingui } from '@lingui/react';
 import { useCustomConnectModal } from '@/modules/ui/hooks/useCustomConnectModal';
@@ -22,6 +22,7 @@ import { useNavigate } from 'react-router-dom';
 import { useConfigContext } from '@/modules/config/hooks/useConfigContext';
 import { defaultConfig } from '@/modules/config/default-config';
 import { useChainId } from 'wagmi';
+import { SealWidgetPane } from '@/modules/seal/components/SealWidgetPane';
 
 export type WidgetContent = [Intent, string, (props: IconProps) => JSX.Element, JSX.Element][];
 
@@ -56,7 +57,7 @@ export const WidgetPane = ({ intent, children }: WidgetPaneProps) => {
   const actionForToken = useActionForToken();
   const rewardsUrl = useRetainedQueryParams(`/?widget=${mapIntentToQueryParam(Intent.REWARDS_INTENT)}`);
   const savingsUrl = useRetainedQueryParams(`/?widget=${mapIntentToQueryParam(Intent.SAVINGS_INTENT)}`);
-
+  const sealUrl = useRetainedQueryParams(`/?widget=${mapIntentToQueryParam(Intent.SEAL_INTENT)}`);
   const navigate = useNavigate();
 
   const widgetContent: WidgetContent = [
@@ -71,6 +72,7 @@ export const WidgetPane = ({ intent, children }: WidgetPaneProps) => {
           actionForToken={actionForToken}
           onClickRewardsCard={() => navigate(rewardsUrl)}
           onClickSavingsCard={() => navigate(savingsUrl)}
+          onClickSealCard={() => navigate(sealUrl)}
           customTokenList={defaultConfig.balancesTokenList[chainId]}
         />
       )
@@ -83,7 +85,8 @@ export const WidgetPane = ({ intent, children }: WidgetPaneProps) => {
     ],
     [Intent.SAVINGS_INTENT, 'Savings', Savings, withErrorBoundary(<SavingsWidgetPane {...sharedProps} />)],
     [Intent.UPGRADE_INTENT, 'Upgrade', Upgrade, withErrorBoundary(<UpgradeWidgetPane {...sharedProps} />)],
-    [Intent.TRADE_INTENT, 'Trade', Trade, withErrorBoundary(<TradeWidgetPane {...sharedProps} />)]
+    [Intent.TRADE_INTENT, 'Trade', Trade, withErrorBoundary(<TradeWidgetPane {...sharedProps} />)],
+    [Intent.SEAL_INTENT, 'Seal', Seal, withErrorBoundary(<SealWidgetPane {...sharedProps} />)]
   ];
 
   return (

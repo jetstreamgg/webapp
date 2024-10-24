@@ -27,7 +27,10 @@ export default defineConfig({
     baseURL: 'http:localhost:3000',
 
     // Collect trace when retrying the failed test.
-    trace: 'on-first-retry'
+    trace: 'on-first-retry',
+
+    // Recording off by default, but can be set to 'on' for debugging
+    video: 'off'
   },
   // Configure projects for major browsers.
   projects: [

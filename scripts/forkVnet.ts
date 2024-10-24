@@ -1,11 +1,7 @@
 import { writeFile } from 'fs/promises';
 
-// Parent containers seem to have errors intermittently, switch container ID's if necessary
-// corresponds to https://dashboard.tenderly.co/jetstreamgg/jetstream/testnet/a87c4fd8-92f0-403d-a95e-d9e39b6c3c48
-// const JETSTREAM_CONTAINER_ID = 'a87c4fd8-92f0-403d-a95e-d9e39b6c3c48'
-
-// corresponds to https://dashboard.tenderly.co/jetstreamgg/jetstream/testnet/a3cdcbc9-56a7-4583-bb2d-705f3bd58e43
-const ENDGAME0_CONTAINER_ID = 'a3cdcbc9-56a7-4583-bb2d-705f3bd58e43';
+// corresponds to `e2e-testing-sep-30-fork` https://dashboard.tenderly.co/jetstreamgg/jetstream/testnet/9a9cfd7a-09bc-4b7f-8d75-03a0c3027267
+const ENDGAME0_CONTAINER_ID = '9a9cfd7a-09bc-4b7f-8d75-03a0c3027267';
 
 const forkVnet = async (displayName: string) => {
   if (!displayName.length) {

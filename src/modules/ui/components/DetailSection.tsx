@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { positionAnimations } from '../animation/presets';
 
 type DetailSectionProps = {
-  title: string;
+  title: string | React.ReactElement;
   dataTestId?: string;
   children: React.ReactNode;
   fixedOpen?: boolean; //true = open, false = closed, undefined = normal
@@ -26,7 +26,7 @@ export function DetailSection({ title, children, dataTestId, fixedOpen }: Detail
     >
       <motion.div variants={positionAnimations}>
         <CollapsibleTrigger className="flex w-full items-center justify-between [&[data-state=open]>svg]:rotate-180">
-          <Heading className="my-4">{title}</Heading>
+          {typeof title === 'string' ? <Heading className="my-4">{title}</Heading> : title}
           {fixedOpen === undefined && (
             <ChevronDown className="h-6 w-6 shrink-0 text-textSecondary transition-transform duration-200" />
           )}

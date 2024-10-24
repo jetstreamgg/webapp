@@ -14,7 +14,6 @@ import { useChainId } from 'wagmi';
 import { useUserSuggestedActions } from '@/modules/ui/hooks/useUserSuggestedActions';
 import { RewardsOverviewAbout } from './RewardsOverviewAbout';
 import { filterActionsByIntent } from '@/lib/utils';
-import { BoostedRewardsClaim } from './BoostedRewardsClaim';
 
 export function RewardsOverview() {
   const { isConnectedAndAcceptedTerms } = useConnectedContext();
@@ -26,7 +25,6 @@ export function RewardsOverview() {
 
   return (
     <DetailSectionWrapper>
-      <BoostedRewardsClaim />
       <DetailSection title={t`Sky Token Rewards overview`}>
         <DetailSectionRow>
           <RewardsOverviewInfo />
