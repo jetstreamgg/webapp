@@ -43,21 +43,24 @@ msgstr ""
 msgid "About Balances"
 msgstr ""
 
+#: src/modules/rewards/components/RewardsDetailsView.tsx
+msgid "About Chronicle points"
+msgstr ""
+
 #: src/modules/layout/components/ConnectCard.tsx
-msgid "About Seal"
+msgid "About Seal Engine"
 msgstr ""
 
 #: src/modules/seal/components/SealOverview.tsx
 #: src/modules/seal/components/SealPositionDetails.tsx
 #: src/modules/ui/components/AboutSealModule.tsx
-msgid "About Seal module"
+msgid "About Seal Rewards"
 msgstr ""
 
 #: src/modules/layout/components/ConnectCard.tsx
 msgid "About Sky Token Rewards"
 msgstr ""
 
-#: src/modules/rewards/components/RewardsDetailsView.tsx
 #: src/modules/rewards/components/RewardsDetailsView.tsx
 #: src/modules/rewards/components/RewardsOverview.tsx
 #: src/modules/savings/components/SavingsDetails.tsx
@@ -165,10 +168,6 @@ msgstr ""
 #: src/modules/trade/components/TradeDetails.tsx
 #: src/modules/upgrade/components/UpgradeDetails.tsx
 msgid "Combined actions"
-msgstr ""
-
-#: src/modules/rewards/components/BoostedRewardsClaim.tsx
-msgid "Coming soon"
 msgstr ""
 
 #: src/modules/layout/components/ConnectCard.tsx
@@ -305,7 +304,6 @@ msgid "Please wait..."
 msgstr ""
 
 #: src/modules/rewards/components/RewardsTokenInfo.tsx
-#: src/modules/seal/components/SealRewardsOverview.tsx
 msgid "Rate"
 msgstr ""
 
@@ -375,11 +373,19 @@ msgid "Seal"
 msgstr ""
 
 #: src/modules/seal/components/SealOverview.tsx
-msgid "Seal Overview"
+msgid "Seal Engine Overview"
 msgstr ""
 
 #: src/modules/seal/components/SealOverview.tsx
 msgid "Seal Positions"
+msgstr ""
+
+#: src/modules/ui/components/AboutSealModule.tsx
+msgid "Seal Rewards are accessed when you supply MKR to the Seal Engine of the decentralised Sky Protocol. Your supplied MKR tokens, as well as any rewards accumulated, automatically enter a non-custodial smart contract, which allows you to always remain in control of your supplied assets. The types of Seal Rewards and rates are determined by Sky ecosystem governance."
+msgstr ""
+
+#: src/modules/layout/components/ConnectCard.tsx
+msgid "Sealing MKR into the Seal Engine enables you to access Seal Rewards by creating a position through which you generate and borrow USDS against those tokens."
 msgstr ""
 
 #: src/modules/app/hooks/useNotification.tsx
@@ -467,10 +473,6 @@ msgstr ""
 #: src/modules/ui/components/historyTable/HistoryTable.tsx
 msgid "There was an error fetching this data"
 msgstr "이 데이터를 가져오는 중에 오류가 발생했습니다."
-
-#: src/modules/ui/components/AboutSealModule.tsx
-msgid "TODO"
-msgstr ""
 
 #: src/modules/rewards/components/RewardsTokenInfo.tsx
 msgid "Total {0} Points rewarded"
@@ -757,7 +759,7 @@ msgstr ""
 
 #: src/modules/seal/components/SealOverview.tsx
 #: src/modules/seal/components/SealPositionDetails.tsx
-msgid "Your Seal transaction history"
+msgid "Your Seal Engine transaction history"
 msgstr ""
 
 #: src/modules/trade/components/TradeDetails.tsx
