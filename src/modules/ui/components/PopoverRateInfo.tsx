@@ -47,10 +47,20 @@ const content = {
         ). This figure does not represent or guarantee future results.
       </Text>
     )
+  },
+  sbr: {
+    title: 'Borrow Rate',
+    description: (
+      <Text className="leading-5 text-white/80" variant="small">
+        The borrow rate is a parameter determined by Sky ecosystem governance through a process of
+        decentralised onchain voting. Borrow rate fees accumulate automatically per block and get added to the
+        total debt.
+      </Text>
+    )
   }
 };
 
-export const PopoverRateInfo = ({ type }: { type: 'str' | 'ssr' }) => {
+export const PopoverRateInfo = ({ type }: { type: 'str' | 'ssr' | 'sbr' }) => {
   if (!(type in content)) return null;
 
   return (

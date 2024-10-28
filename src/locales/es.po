@@ -288,6 +288,10 @@ msgstr "No se han encontrado transacciones"
 msgid "Only Ethereum Mainnet is supported at this time.<0/>Please switch networks to continue."
 msgstr ""
 
+#: src/modules/seal/components/SealHistory.tsx
+msgid "Open position"
+msgstr ""
+
 #: src/modules/ui/components/historyTable/HistoryTable.tsx
 msgid "Please connect your wallet to view your history"
 msgstr ""
@@ -388,6 +392,14 @@ msgstr ""
 
 #: src/modules/app/hooks/useNotification.tsx
 msgid "See all rewards"
+msgstr ""
+
+#: src/modules/seal/components/SealHistory.tsx
+msgid "Select delegate"
+msgstr ""
+
+#: src/modules/seal/components/SealHistory.tsx
+msgid "Select reward"
 msgstr ""
 
 #: src/modules/ui/components/AboutSky.tsx
@@ -600,6 +612,10 @@ msgstr "No se pudo cargar los datos del gráfico, por favor inténtalo de nuevo 
 
 #: src/modules/seal/components/SealHistory.tsx
 msgid "Unseal"
+msgstr ""
+
+#: src/modules/seal/components/SealHistory.tsx
+msgid "Unseal kick"
 msgstr ""
 
 #: src/lib/constants.ts

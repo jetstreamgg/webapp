@@ -8,6 +8,8 @@ import { HistoryTable } from '@/modules/ui/components/historyTable/HistoryTable'
 
 const mapTypeEnumToColumn = (type: TransactionTypeEnum) => {
   switch (type) {
+    case TransactionTypeEnum.OPEN:
+      return t`Open position`;
     case TransactionTypeEnum.SEAL:
     case TransactionTypeEnum.SEAL_SKY:
       return t`Seal`;
@@ -20,6 +22,12 @@ const mapTypeEnumToColumn = (type: TransactionTypeEnum) => {
       return t`Borrow`;
     case TransactionTypeEnum.REPAY:
       return t`Repay`;
+    case TransactionTypeEnum.SELECT_DELEGATE:
+      return t`Select delegate`;
+    case TransactionTypeEnum.SELECT_REWARD:
+      return t`Select reward`;
+    case TransactionTypeEnum.UNSEAL_KICK:
+      return t`Unseal kick`;
     default:
       return '';
   }
@@ -44,16 +52,6 @@ const mapTypeEnumToTokenSymbol = (type: TransactionTypeEnum) => {
   }
 };
 
-const eventsToInclude = [
-  TransactionTypeEnum.SEAL,
-  TransactionTypeEnum.SEAL_SKY,
-  TransactionTypeEnum.UNSEAL,
-  TransactionTypeEnum.UNSEAL_SKY,
-  TransactionTypeEnum.SEAL_REWARD,
-  TransactionTypeEnum.BORROW,
-  TransactionTypeEnum.REPAY
-];
-
 const highlightedEvents = [TransactionTypeEnum.SEAL, TransactionTypeEnum.SEAL_SKY, TransactionTypeEnum.REPAY];
 
 export function SealHistory() {
@@ -64,24 +62,28 @@ export function SealHistory() {
   const formattedDates = useFormatDates(memoizedDates, i18n.locale, 'MMMM d, yyyy, h:mm a');
 
   // map seal history to rows
-  const history = sealHistory
-    // Filter out events that don't have an amount to display
-    ?.filter(s => eventsToInclude.includes(s.type))
-    .map((s, index) => ({
-      id: `${s.transactionHash}-${s.type}`,
-      type: mapTypeEnumToColumn(s.type),
-      highlightText: highlightedEvents.includes(s.type),
-      // @ts-expect-error TODO: Update the type of the history items once we have clarity on the events to display in the table
-      textLeft: `${formatBigInt(s.amount || 0n, { compact: true })} ${mapTypeEnumToTokenSymbol(s.type)}`,
-      iconLeft: highlightedEvents.includes(s.type) ? (
-        <SavingsSupply width={14} height={13} className="mr-1" />
+  const history = sealHistory?.map((s, index) => ({
+    id: `${s.transactionHash}-${s.type}`,
+    type: mapTypeEnumToColumn(s.type),
+    highlightText: highlightedEvents.includes(s.type),
+    textLeft:
+      'amount' in s
+        ? `${formatBigInt(s.amount || 0n, { compact: true })} ${mapTypeEnumToTokenSymbol(s.type)}`
+        : '',
+    iconLeft:
+      'amount' in s ? (
+        highlightedEvents.includes(s.type) ? (
+          <SavingsSupply width={14} height={13} className="mr-1" />
+        ) : (
+          <ArrowDown width={10} height={14} className="mr-1 fill-white" />
+        )
       ) : (
-        <ArrowDown width={10} height={14} className="mr-1 fill-white" />
+        <></>
       ),
-      formattedDate: formattedDates.length > index ? formattedDates[index] : '',
-      rawDate: s.blockTimestamp,
-      transactionHash: s.transactionHash
-    }));
+    formattedDate: formattedDates.length > index ? formattedDates[index] : '',
+    rawDate: s.blockTimestamp,
+    transactionHash: s.transactionHash
+  }));
 
   return (
     <HistoryTable

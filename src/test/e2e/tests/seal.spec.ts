@@ -43,7 +43,7 @@ test('Lock MKR, select rewards, select delegate, and open position', async ({ pa
   await page.getByTestId('widget-button').click();
 
   // confirm position
-  await expect(page.getByText('Confirm your position')).toBeVisible();
+  await expect(page.getByText('Confirm your position').nth(0)).toBeVisible();
   await expect(page.getByTestId('widget-container').getByText('Sealing')).toBeVisible();
   await expect(page.getByText('100 MKR')).toBeVisible();
   await expect(page.getByTestId('widget-container').getByText('Seal reward')).toBeVisible();

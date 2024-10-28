@@ -290,6 +290,10 @@ msgstr "거래 내역이 없습니다."
 msgid "Only Ethereum Mainnet is supported at this time.<0/>Please switch networks to continue."
 msgstr ""
 
+#: src/modules/seal/components/SealHistory.tsx
+msgid "Open position"
+msgstr ""
+
 #: src/modules/ui/components/historyTable/HistoryTable.tsx
 msgid "Please connect your wallet to view your history"
 msgstr ""
@@ -390,6 +394,14 @@ msgstr ""
 
 #: src/modules/app/hooks/useNotification.tsx
 msgid "See all rewards"
+msgstr ""
+
+#: src/modules/seal/components/SealHistory.tsx
+msgid "Select delegate"
+msgstr ""
+
+#: src/modules/seal/components/SealHistory.tsx
+msgid "Select reward"
 msgstr ""
 
 #: src/modules/ui/components/AboutSky.tsx
@@ -602,6 +614,10 @@ msgstr ""
 
 #: src/modules/seal/components/SealHistory.tsx
 msgid "Unseal"
+msgstr ""
+
+#: src/modules/seal/components/SealHistory.tsx
+msgid "Unseal kick"
 msgstr ""
 
 #: src/lib/constants.ts
