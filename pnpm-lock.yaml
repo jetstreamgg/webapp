@@ -15,8 +15,8 @@ importers:
         specifier: 2.1.0
         version: 2.1.0(@tanstack/react-query@5.17.15(react@18.2.0))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(utf-8-validate@5.0.10)(viem@2.21.19(bufferutil@4.0.8)(typescript@5.2.2)(utf-8-validate@5.0.10)(zod@3.23.8))(wagmi@2.12.17(@tanstack/query-core@5.17.15)(@tanstack/react-query@5.17.15(react@18.2.0))(@types/react@18.2.6)(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.2(@babel/core@7.25.7)(@babel/preset-env@7.24.7(@babel/core@7.25.7))(@types/react@18.2.6)(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@5.0.10))(react@18.2.0)(rollup@4.18.0)(typescript@5.2.2)(utf-8-validate@5.0.10)(viem@2.21.19(bufferutil@4.0.8)(typescript@5.2.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8))
       '@jetstreamgg/widgets':
-        specifier: 3.1.4
-        version: 3.1.4(a33zb5mviywkwqupuauhfgwwpy)
+        specifier: 3.1.5
+        version: 3.1.5(a33zb5mviywkwqupuauhfgwwpy)
       '@lingui/detect-locale':
         specifier: ^4.7.0
         version: 4.7.0
@@ -2190,8 +2190,8 @@ packages:
       viem: ^2.21.19
       wagmi: ^2.12.17
 
-  '@jetstreamgg/widgets@3.1.4':
-    resolution: {integrity: sha512-SQByV/DLZiHDTsboW59kM6B/wXtvgHJ8MZZHZGrmeuGhE5yOUfuFk0WUnjM9Kt6zxf86mkbTGu6rdtaCLT6QWw==}
+  '@jetstreamgg/widgets@3.1.5':
+    resolution: {integrity: sha512-cLwO9NySKwDwC3tbUZYaY7KbJS1JOYpgFDigrpM7ypoRfLVbqsI0NZz5UkM7cUFScJPheQFVJQNzeQIAlSTjqw==}
     peerDependencies:
       '@emotion/react': ^11
       '@emotion/styled': ^11
@@ -6040,6 +6040,7 @@ packages:
   eslint@8.57.0:
     resolution: {integrity: sha512-dZ6+mexnaTIbSBZWgou51U6OmzIhYM2VcNdtiTtI7qPNZm35Akpr0f6vtw3w1Kmn5PYo+tZVfh13WrhpS6oLqQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
 
   espree@9.6.1:
@@ -11979,7 +11980,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@jetstreamgg/widgets@3.1.4(a33zb5mviywkwqupuauhfgwwpy)':
+  '@jetstreamgg/widgets@3.1.5(a33zb5mviywkwqupuauhfgwwpy)':
     dependencies:
       '@emotion/react': 11.11.4(@types/react@18.2.6)(react@18.2.0)
       '@emotion/styled': 11.11.5(@emotion/react@11.11.4(@types/react@18.2.6)(react@18.2.0))(@types/react@18.2.6)(react@18.2.0)
