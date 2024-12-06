@@ -15,7 +15,8 @@ export enum QueryParams {
   TargetToken = 'target_token',
   LinkedAction = 'linked_action',
   InputAmount = 'input_amount',
-  Timestamp = 'timestamp'
+  Timestamp = 'timestamp',
+  Network = 'network'
 }
 
 export const restrictedIntents = [Intent.SAVINGS_INTENT, Intent.REWARDS_INTENT, Intent.SEAL_INTENT];

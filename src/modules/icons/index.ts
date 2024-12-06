@@ -30,6 +30,8 @@ import { Seal } from './Seal';
 import { Toggle } from './Toggle';
 import { BaseNetwork } from './BaseNetwork';
 import { MainnetNetwork } from './MainnetNetwork';
+import { BaseChain } from './BaseChain';
+import { MainnetChain } from './MainnetChain';
 
 export {
   ArrowDown,
@@ -63,5 +65,7 @@ export {
   Seal,
   Toggle,
   BaseNetwork,
-  MainnetNetwork
+  MainnetNetwork,
+  BaseChain,
+  MainnetChain
 };

@@ -11,6 +11,7 @@ export function CustomConnectButton(props: any) {
       smallScreen: 'avatar',
       largeScreen: 'full'
     },
+    chainStatus: 'none',
     showBalance: false,
     label: 'Connect Wallet'
   };

@@ -1,17 +1,11 @@
-import { tenderlyBase } from '@/data/wagmi/config/config.default';
-import { MainnetNetwork, BaseNetwork } from '@/modules/icons';
-import { useChainModal } from '@rainbow-me/rainbowkit';
-import { base } from 'viem/chains';
-import { useChainId } from 'wagmi';
 import { Tooltip, TooltipArrow, TooltipContent, TooltipPortal, TooltipTrigger } from './ui/tooltip';
 import { Text } from '@/modules/layout/components/Typography';
 import { Trans } from '@lingui/macro';
 import { useConfigContext } from '@/modules/config/hooks/useConfigContext';
 import { Intent } from '@/lib/enums';
+import { ChainModal } from '@/modules/ui/components/ChainModal';
 
-export function NetworkSwitcer() {
-  const chainId = useChainId();
-  const { openChainModal } = useChainModal();
+export function NetworkSwitcher() {
   const { userConfig } = useConfigContext();
 
   const { intent } = userConfig;
@@ -28,8 +22,8 @@ export function NetworkSwitcer() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <div className="cursor-pointer" onClick={openChainModal}>
-          {chainId === base.id || chainId === tenderlyBase.id ? <BaseNetwork /> : <MainnetNetwork />}
+        <div>
+          <ChainModal iconOnly />
         </div>
       </TooltipTrigger>
       <TooltipPortal>

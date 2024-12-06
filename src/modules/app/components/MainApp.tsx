@@ -8,7 +8,7 @@ import { Intent } from '@/lib/enums';
 import { useConfigContext } from '@/modules/config/hooks/useConfigContext';
 import { validateLinkedActionSearchParams, validateSearchParams } from '@/modules/utils/validateSearchParams';
 import { useAvailableTokenRewardContracts } from '@jetstreamgg/hooks';
-import { useChainId } from 'wagmi';
+import { useAccount, useAccountEffect, useChainId, useChains, useSwitchChain } from 'wagmi';
 import { BP, useBreakpointIndex } from '@/modules/ui/hooks/useBreakpointIndex';
 import { LinkedActionSteps } from '@/modules/config/context/ConfigContext';
 
@@ -25,6 +25,35 @@ export function MainApp() {
 
   const { intent } = userConfig;
   const chainId = useChainId();
+  const chains = useChains();
+
+  const { connector } = useAccount();
+  useAccountEffect({
+    // Once the user connects their wallet, check if the network param is set and switch chains if necessary
+    onConnect() {
+      const parsedChainId = chains.find(chain => chain.name.toLowerCase() === network?.toLowerCase())?.id;
+      if (parsedChainId) {
+        switchChain({ chainId: parsedChainId });
+      }
+    }
+  });
+
+  const { switchChain } = useSwitchChain({
+    mutation: {
+      onError: err => {
+        // If the user rejects the network switch request, update the network query param to the current chain
+        if (err.name === 'UserRejectedRequestError') {
+          const chainName = chains.find(c => c.id === chainId)?.name;
+          if (chainName) {
+            setSearchParams(params => {
+              params.set(QueryParams.Network, chainName.toLowerCase());
+              return params;
+            });
+          }
+        }
+      }
+    }
+  });
 
   const rewardContracts = useAvailableTokenRewardContracts(chainId);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -37,6 +66,7 @@ export function MainApp() {
   const linkedAction = searchParams.get(QueryParams.LinkedAction) || undefined;
   const inputAmount = searchParams.get(QueryParams.InputAmount) || undefined;
   const timestamp = searchParams.get(QueryParams.Timestamp) || undefined;
+  const network = searchParams.get(QueryParams.Network) || undefined;
 
   // step is initialized as 0 and will evaluate to false, setting the first step to 1
   const step = linkedAction ? linkedActionConfig.step || 1 : 0;
@@ -60,6 +90,45 @@ export function MainApp() {
       { replace: true }
     );
   }, [searchParams, rewardContracts, setSelectedRewardContract, widgetParam]);
+
+  useEffect(() => {
+    // If there's no network param, default to the current chain
+    if (!network) {
+      const chainName = chains.find(c => c.id === chainId)?.name;
+      if (chainName)
+        setSearchParams(params => {
+          params.set(QueryParams.Network, chainName.toLowerCase());
+          return params;
+        });
+    } else {
+      // If the network param doesn't match the current chain, switch chains
+      const parsedChainId = chains.find(chain => chain.name.toLowerCase() === network.toLowerCase())?.id;
+      if (parsedChainId && parsedChainId !== chainId) {
+        switchChain({ chainId: parsedChainId });
+      }
+    }
+  }, [network]);
+
+  useEffect(() => {
+    // If the user changes the network in their wallet, update the `network` query param
+    const handleChainChange = ({ chainId: newChainId }: { chainId?: number | undefined }) => {
+      const newChainName = chains.find(c => c.id === newChainId)?.name;
+      if (newChainName) {
+        setSearchParams(params => {
+          params.set(QueryParams.Network, newChainName.toLowerCase());
+          return params;
+        });
+      }
+    };
+
+    const emitter = connector?.emitter;
+    emitter?.on('change', handleChainChange);
+
+    // Cleanup function to remove the listener
+    return () => {
+      emitter?.off('change', handleChainChange);
+    };
+  }, [chains, connector, setSearchParams]);
 
   useEffect(() => {
     // Updates the active widget pane in the config
