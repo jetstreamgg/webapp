@@ -1,6 +1,13 @@
-import { TradeWidget, TxStatus, TradeAction, WidgetStateChangeParams } from '@jetstreamgg/widgets';
+import {
+  TradeWidget,
+  TxStatus,
+  TradeAction,
+  WidgetStateChangeParams,
+  BaseTradeWidget
+} from '@jetstreamgg/widgets';
 import { defaultConfig } from '../../config/default-config';
 import { useChainId, useConfig as useWagmiConfig } from 'wagmi';
+import { base } from 'viem/chains';
 import { QueryParams, REFRESH_DELAY } from '@/lib/constants';
 import { SharedProps } from '@/modules/app/types/Widgets';
 import { LinkedActionSteps } from '@/modules/config/context/ConfigContext';
@@ -22,6 +29,8 @@ export function TradeWidgetPane(sharedProps: SharedProps) {
   const [, setSearchParams] = useSearchParams();
 
   const { onNavigate, setCustomHref, customNavLabel, setCustomNavLabel } = useCustomNavigation();
+
+  const isBase = chainId === base.id;
 
   const onTradeWidgetStateChange = ({
     hash,
@@ -88,8 +97,10 @@ export function TradeWidgetPane(sharedProps: SharedProps) {
     [linkedActionConfig]
   );
 
+  const Widget = isBase ? BaseTradeWidget : TradeWidget;
+
   return (
-    <TradeWidget
+    <Widget
       key={externalWidgetState.timestamp}
       {...sharedProps}
       disallowedPairs={defaultConfig.tradeDisallowedPairs}
