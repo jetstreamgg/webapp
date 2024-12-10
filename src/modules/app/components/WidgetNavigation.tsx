@@ -120,6 +120,7 @@ export function WidgetNavigation({ widgetContent, intent, children }: WidgetNavi
         {/* TODO justify-around only when restricted */}
         <TabsList
           className={`${isMobile ? 'space-x-1' : ''} sticky top-0 z-20 flex w-full justify-around rounded-none rounded-t-3xl border-b p-3 backdrop-blur-2xl md:border-none md:p-0 md:backdrop-filter-none`}
+          data-testid="widget-navigation"
         >
           {widgetContent.map(([widgetIntent, label, icon, , comingSoon, options]) => (
             <div key={widgetIntent}>

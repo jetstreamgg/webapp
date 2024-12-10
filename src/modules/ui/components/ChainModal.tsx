@@ -19,7 +19,13 @@ const getChainIcon = (chainId: number, className?: string) =>
     <MainnetChain className={className} />
   );
 
-export function ChainModal({ iconOnly }: { iconOnly?: boolean }) {
+export function ChainModal({
+  iconOnly,
+  dataTestId = 'chain-modal-trigger'
+}: {
+  iconOnly?: boolean;
+  dataTestId?: string;
+}) {
   const [open, setOpen] = useState(false);
   const chainId = useChainId();
   const client = useClient();
@@ -54,6 +60,7 @@ export function ChainModal({ iconOnly }: { iconOnly?: boolean }) {
             iconOnly &&
               'border-transparent bg-primary bg-blend-overlay px-[9px] hover:border-transparent hover:bg-white/10 hover:[--gradient-opacity:100%] focus:border-transparent focus:bg-white/15 focus:[--gradient-opacity:100%]'
           )}
+          data-testid={dataTestId}
         >
           {getChainIcon(chainId, iconOnly ? 'h-5 w-5' : 'h-6 w-6')}
           {!iconOnly && (

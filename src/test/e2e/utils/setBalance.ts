@@ -1,5 +1,5 @@
 import { readFile } from 'fs/promises';
-import { TEST_ADDRESS } from './constants';
+import { NetworkName, TEST_ADDRESS } from './constants';
 import { parseEther, parseUnits, toHex } from 'viem';
 
 export async function backOffRetry<T>(fn: () => Promise<T>, retries: number, delay: number): Promise<T> {
@@ -12,11 +12,13 @@ export async function backOffRetry<T>(fn: () => Promise<T>, retries: number, del
   }
 }
 
-const setEthBalanceRequest = async (amount: string) => {
+const setEthBalanceRequest = async (amount: string, network = NetworkName.mainnet) => {
   const file = await readFile('./tenderlyTestnetData.json', 'utf-8');
-  const { TENDERLY_RPC_URL } = JSON.parse(file);
+  const [{ TENDERLY_RPC_URL: TENDERLY_MAINNET_RPC_URL }, { TENDERLY_RPC_URL: TENDERLY_BASE_RPC_URL }] =
+    JSON.parse(file);
+  const rpcUrl = network === NetworkName.mainnet ? TENDERLY_MAINNET_RPC_URL : TENDERLY_BASE_RPC_URL;
 
-  const response = await fetch(TENDERLY_RPC_URL, {
+  const response = await fetch(rpcUrl, {
     method: 'POST',
     headers: {
       accept: '*/*',
@@ -35,15 +37,22 @@ const setEthBalanceRequest = async (amount: string) => {
   }
 };
 
-export const setEthBalance = async (amount: string) => {
-  await backOffRetry(() => setEthBalanceRequest(amount), 3, 2);
+export const setEthBalance = async (amount: string, network = NetworkName.mainnet) => {
+  await backOffRetry(() => setEthBalanceRequest(amount, network), 3, 2);
 };
 
-const setErc20BalanceRequest = async (tokenAddress: string, amount: string, decimals: number = 18) => {
+const setErc20BalanceRequest = async (
+  tokenAddress: string,
+  amount: string,
+  decimals: number = 18,
+  network = NetworkName.mainnet
+) => {
   const file = await readFile('./tenderlyTestnetData.json', 'utf-8');
-  const { TENDERLY_RPC_URL } = JSON.parse(file);
+  const [{ TENDERLY_RPC_URL: TENDERLY_MAINNET_RPC_URL }, { TENDERLY_RPC_URL: TENDERLY_BASE_RPC_URL }] =
+    JSON.parse(file);
+  const rpcUrl = network === NetworkName.mainnet ? TENDERLY_MAINNET_RPC_URL : TENDERLY_BASE_RPC_URL;
 
-  const response = await fetch(TENDERLY_RPC_URL, {
+  const response = await fetch(rpcUrl, {
     method: 'POST',
     headers: {
       accept: '*/*',
@@ -62,6 +71,11 @@ const setErc20BalanceRequest = async (tokenAddress: string, amount: string, deci
   }
 };
 
-export const setErc20Balance = async (tokenAddress: string, amount: string, decimals: number = 18) => {
-  await backOffRetry(() => setErc20BalanceRequest(tokenAddress, amount, decimals), 3, 2);
+export const setErc20Balance = async (
+  tokenAddress: string,
+  amount: string,
+  decimals: number = 18,
+  network = NetworkName.mainnet
+) => {
+  await backOffRetry(() => setErc20BalanceRequest(tokenAddress, amount, decimals, network), 3, 2);
 };

@@ -23,7 +23,7 @@ export function NetworkSwitcher() {
     <Tooltip>
       <TooltipTrigger asChild>
         <div>
-          <ChainModal iconOnly />
+          <ChainModal iconOnly dataTestId="chain-modal-trigger-widget" />
         </div>
       </TooltipTrigger>
       <TooltipPortal>

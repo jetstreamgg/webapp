@@ -2,7 +2,8 @@ import { readFile } from 'fs/promises';
 
 export const distributeRewards = async () => {
   const file = await readFile('./tenderlyTestnetData.json', 'utf-8');
-  const { TENDERLY_RPC_URL } = JSON.parse(file);
+  // RPC URL for the Mainnet fork
+  const [{ TENDERLY_RPC_URL }] = JSON.parse(file);
   const VESTED_REWARDS_DISTRIBUTION = '0x2f0c88e935db5a60dda73b0b4eaeef55883896d9'; // Address of the `VestedRewardsDistribution` contract
 
   const distributeResponse = await fetch(TENDERLY_RPC_URL, {
