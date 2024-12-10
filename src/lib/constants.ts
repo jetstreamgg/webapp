@@ -117,3 +117,8 @@ export const STAGING_URL_SKY_SUBGRAPH_MAINNET =
   'https://query-subgraph-staging.sky.money/subgraphs/name/jetstreamgg/subgraph-mainnet';
 export const STAGING_URL_SKY_SUBGRAPH_TESTNET =
   'https://query-subgraph-staging.sky.money/subgraphs/name/jetstreamgg/subgraph-testnet';
+//TODO: add prod base subgraph
+export const STAGING_URL_SKY_SUBGRAPH_BASE =
+  'https://query-subgraph-staging.sky.money/subgraphs/name/jetstreamgg/subgraph-base';
+export const STAGING_URL_SKY_SUBGRAPH_BASE_TENDERLY =
+  'https://query-subgraph-staging.sky.money/subgraphs/name/jetstreamgg/subgraph-baseTenderly';
