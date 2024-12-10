@@ -26,9 +26,6 @@ const forkVnets = async (displayName: string) => {
     )
   );
 
-  // Wait a few seconds to let the vnet clone operation complete
-  await new Promise(resolve => setTimeout(resolve, 10000));
-
   const testnetsData = await Promise.all(responses.map(response => response.json()));
 
   for (const res of responses) {

@@ -1,5 +1,7 @@
+import { waitForVnetsReady } from './utils/waitForVnetsReady';
+
 const globalSetup = async (): Promise<void> => {
-  // add global setup
+  await waitForVnetsReady();
 };
 
 export default globalSetup;
