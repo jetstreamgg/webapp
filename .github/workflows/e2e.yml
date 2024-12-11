@@ -16,9 +16,25 @@ jobs:
             vnet: true
           - test: reward-2.spec
             vnet: true
-          - test: upgrade.spec
+          - test: reward-3.spec
             vnet: true
-          - test: savings.spec
+          - test: reward-4.spec
+            vnet: true
+          - test: upgrade-1.spec
+            vnet: true
+          - test: upgrade-2.spec
+            vnet: true
+          - test: upgrade-3.spec
+            vnet: true
+          - test: upgrade-4.spec
+            vnet: true
+          - test: savings-1.spec
+            vnet: true
+          - test: savings-2.spec
+            vnet: true
+          - test: savings-3.spec
+            vnet: true
+          - test: savings-4.spec
             vnet: true
           - test: seal.spec
             vnet: true

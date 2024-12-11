@@ -20,7 +20,7 @@ export default defineConfig({
   timeout: 60000,
 
   // Reporter to use
-  reporter: 'html',
+  reporter: process.env.CI ? 'blob' : 'html',
 
   use: {
     // Base URL to use in actions like `await page.goto('/')`.
