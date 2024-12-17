@@ -1,4 +1,4 @@
-import { sepolia, mainnet } from 'wagmi/chains';
+import { sepolia, mainnet, base } from 'wagmi/chains';
 import {
   usdcAddress,
   usdcSepoliaAddress,
@@ -12,14 +12,15 @@ import {
   usdsAddress,
   ETH_ADDRESS,
   mkrAddress,
-  skyAddress
+  skyAddress,
+  usdcBaseAddress,
+  usdsBaseAddress
 } from '@jetstreamgg/hooks';
-import { tenderly } from '@/data/wagmi/config/config.default';
-import { TENDERLY_CHAIN_ID } from '@/data/wagmi/config/testTenderlyChain';
+import { tenderly, tenderlyBase } from '@/data/wagmi/config/config.default';
+import { TENDERLY_CHAIN_ID, TENDERLY_BASE_CHAIN_ID } from '@/data/wagmi/config/testTenderlyChain';
 
 const { usdc, usdt, eth, weth, dai, usds, mkr, sky } = TOKENS;
 
-// TODO Add remaining mainnet tokens once they have been deployed
 export const restrictedTokenList = {
   [mainnet.id]: [
     { ...usdc, address: usdcAddress[mainnet.id] },
@@ -49,6 +50,14 @@ export const restrictedTokenList = {
     { ...eth, address: ETH_ADDRESS },
     { ...weth, address: wethSepoliaAddress[sepolia.id] },
     { ...dai, address: mcdDaiSepoliaAddress[sepolia.id] }
+  ],
+  [base.id]: [
+    { ...usdc, address: usdcBaseAddress[base.id] },
+    { ...usds, address: usdsBaseAddress[base.id] }
+  ],
+  [tenderlyBase.id]: [
+    { ...usdc, address: usdcBaseAddress[TENDERLY_BASE_CHAIN_ID] },
+    { ...usds, address: usdsBaseAddress[TENDERLY_BASE_CHAIN_ID] }
   ]
 };
 
@@ -77,5 +86,13 @@ export const restrictedTokenListTrade = {
     { ...eth, address: ETH_ADDRESS },
     { ...weth, address: wethSepoliaAddress[sepolia.id] },
     { ...dai, address: mcdDaiSepoliaAddress[sepolia.id] }
+  ],
+  [base.id]: [
+    { ...usdc, address: usdcBaseAddress[base.id] },
+    { ...usds, address: usdsBaseAddress[base.id] }
+  ],
+  [tenderlyBase.id]: [
+    { ...usdc, address: usdcBaseAddress[TENDERLY_BASE_CHAIN_ID] },
+    { ...usds, address: usdsBaseAddress[TENDERLY_BASE_CHAIN_ID] }
   ]
 };
