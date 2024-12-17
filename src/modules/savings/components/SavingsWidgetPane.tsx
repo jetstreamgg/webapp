@@ -1,5 +1,12 @@
-import { SavingsWidget, TxStatus, SavingsAction, WidgetStateChangeParams } from '@jetstreamgg/widgets';
+import {
+  SavingsWidget,
+  BaseSavingsWidget,
+  TxStatus,
+  SavingsAction,
+  WidgetStateChangeParams
+} from '@jetstreamgg/widgets';
 import { useSavingsHistory } from '@jetstreamgg/hooks';
+import { isBaseChainId } from '@jetstreamgg/utils';
 import { REFRESH_DELAY } from '@/lib/constants';
 import { SharedProps } from '@/modules/app/types/Widgets';
 import { LinkedActionSteps } from '@/modules/config/context/ConfigContext';
@@ -7,12 +14,16 @@ import { useConfigContext } from '@/modules/config/hooks/useConfigContext';
 import { useSearchParams } from 'react-router-dom';
 import { deleteSearchParams } from '@/modules/utils/deleteSearchParams';
 import { useSubgraphUrl } from '@/modules/app/hooks/useSubgraphUrl';
+import { useChainId } from 'wagmi';
 
 export function SavingsWidgetPane(sharedProps: SharedProps) {
   const subgraphUrl = useSubgraphUrl();
   const { linkedActionConfig, updateLinkedActionConfig, exitLinkedActionMode } = useConfigContext();
-  const { mutate: refreshSavingsHistory } = useSavingsHistory({ subgraphUrl });
+  const { mutate: refreshSavingsHistory } = useSavingsHistory(subgraphUrl);
   const [, setSearchParams] = useSearchParams();
+  const chainId = useChainId();
+
+  const isBaseChain = isBaseChainId(chainId);
 
   const onSavingsWidgetStateChange = ({ hash, txStatus, widgetState }: WidgetStateChangeParams) => {
     // After a successful linked action sUPPLY, set the final step to "success"
@@ -43,11 +54,19 @@ export function SavingsWidgetPane(sharedProps: SharedProps) {
       }, REFRESH_DELAY);
     }
   };
+
+  const Widget = isBaseChain ? BaseSavingsWidget : SavingsWidget;
+
+  console.log({ linkedActionConfig });
+
   return (
-    <SavingsWidget
+    <Widget
       {...sharedProps}
       onWidgetStateChange={onSavingsWidgetStateChange}
-      externalWidgetState={{ amount: linkedActionConfig?.inputAmount }}
+      externalWidgetState={{
+        amount: linkedActionConfig?.inputAmount,
+        token: isBaseChain ? linkedActionConfig?.sourceToken : undefined
+      }}
     />
   );
 }

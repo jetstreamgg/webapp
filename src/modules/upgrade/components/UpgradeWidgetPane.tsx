@@ -18,6 +18,7 @@ import { useCustomNavigation } from '@/modules/ui/hooks/useCustomNavigation';
 import { updateParamsFromTransaction } from '@/modules/utils/updateParamsFromTransaction';
 import { capitalizeFirstLetter } from '@/lib/helpers/string/capitalizeFirstLetter';
 import { useSubgraphUrl } from '@/modules/app/hooks/useSubgraphUrl';
+import { deleteSearchParams } from '@/modules/utils/deleteSearchParams';
 
 const targetTokenFromSourceToken = (sourceToken?: string) => {
   if (sourceToken === 'DAI') return 'USDS';
@@ -85,7 +86,10 @@ export function UpgradeWidgetPane(sharedProps: SharedProps) {
       widgetState.flow === UpgradeFlow.REVERT &&
       widgetState.screen === UpgradeScreen.TRANSACTION
     ) {
-      setSearchParams('');
+      setSearchParams(prevParams => {
+        const params = deleteSearchParams(prevParams);
+        return params;
+      });
       exitLinkedActionMode();
     }
 
@@ -98,7 +102,10 @@ export function UpgradeWidgetPane(sharedProps: SharedProps) {
       targetToken &&
       targetToken !== targetTokenFromSourceToken(linkedActionConfig.sourceToken)
     ) {
-      setSearchParams('');
+      setSearchParams(prevParams => {
+        const params = deleteSearchParams(prevParams);
+        return params;
+      });
       exitLinkedActionMode();
     }
   };

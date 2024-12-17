@@ -24,7 +24,7 @@ const tabsTriggerVariants = cva('', {
       default:
         'w-full inline-flex items-center justify-center whitespace-nowrap h-10 p-3 text-sm font-normal leading-none text-tabPrimary ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-surface hover:bg-surfaceHover data-[state=active]:bg-surface data-[state=active]:border-transparent data-[state=active]:text-text focus:bg-neutral-950 focus:bg-tab focus:text-text disabled:text-opacity duration-250 ease-out-expo',
       icons:
-        'text-xs text-textSecondary flex flex-col gap-1 items-center justify-center px-2 py-2.5 rounded-xl w-[72px] md:w-16 data-[state=active]:text-text bg-primary !border-0 [--gradient-opacity:0%] data-[state=active]:[--gradient-opacity:100%] data-[state=active]:!border hover:[--gradient-opacity:50%] transition-gradient-opacity duration-250 ease-out-expo relative'
+        'text-xs text-textSecondary flex flex-col gap-1 items-center justify-center px-2 py-2.5 rounded-xl w-[72px] md:w-16 data-[state=active]:text-text bg-primary border border-transparent [--gradient-opacity:0%] data-[state=active]:[--gradient-opacity:100%] data-[state=active]:border-border hover:[--gradient-opacity:50%] disabled:hover:[--gradient-opacity:0%] transition-gradient-opacity duration-250 ease-out-expo relative'
     },
     position: {
       default: '',

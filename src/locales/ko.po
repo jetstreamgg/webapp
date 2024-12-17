@@ -238,7 +238,7 @@ msgid "Get rewards with USDS"
 msgstr ""
 
 #: src/modules/app/hooks/useActionForToken.tsx
-msgid "Get rewards with your {0} {1}"
+msgid "Get rewards with your {formattedBalance} {upperSymbol}"
 msgstr ""
 
 #: src/modules/app/hooks/useNotification.tsx
@@ -293,7 +293,7 @@ msgid "No transactions found"
 msgstr "거래 내역이 없습니다."
 
 #: src/modules/layout/components/UnsupportedNetworkPage.tsx
-msgid "Only Ethereum Mainnet is supported at this time.<0/>Please switch networks to continue."
+msgid "Only Ethereum Mainnet and Base are supported at this time.<0/>Please switch networks to continue."
 msgstr ""
 
 #: src/modules/seal/components/SealHistory.tsx
@@ -454,12 +454,21 @@ msgstr ""
 msgid "Something went wrong"
 msgstr ""
 
+#: src/modules/app/components/WidgetNavigation.tsx
+msgid "Soon"
+msgstr ""
+
 #: src/modules/ui/hooks/useUserSuggestedActions.ts
 msgid "Start getting rewards"
 msgstr ""
 
 #: src/modules/ui/hooks/useUserSuggestedActions.ts
 msgid "Start saving"
+msgstr ""
+
+#: src/modules/app/hooks/useActionForToken.tsx
+#: src/modules/app/hooks/useActionForToken.tsx
+msgid "Start saving with your {formattedBalance} {upperSymbol}"
 msgstr ""
 
 #: src/modules/ui/components/BalanceCards.tsx
@@ -482,6 +491,14 @@ msgstr ""
 
 #: src/modules/ui/components/AboutSUsds.tsx
 msgid "sUSDS is a savings token for eligible users. When you supply USDS to the Sky Savings Rate module, you access the Sky Savings Rate and may receive sUSDS tokens. These sUSDS tokens serve as a digital record of your USDS interaction with the SSR module and any value accrued to your position."
+msgstr ""
+
+#: src/modules/ui/components/ChainModal.tsx
+msgid "Switch chain"
+msgstr ""
+
+#: src/components/NetworkSwitcher.tsx
+msgid "Switch network"
 msgstr ""
 
 #: src/modules/layout/components/ConnectCard.tsx
@@ -567,11 +584,12 @@ msgid "Trade USDT for USDS"
 msgstr ""
 
 #: src/modules/app/hooks/useActionForToken.tsx
-msgid "Trade your {0} {1} for USDS"
+#: src/modules/app/hooks/useActionForToken.tsx
+msgid "Trade your {formattedBalance} {upperSymbol} for USDS"
 msgstr ""
 
 #: src/modules/app/hooks/useActionForToken.tsx
-msgid "Trade your {0} {1} for USDS to get rewards"
+msgid "Trade your {formattedBalance} {upperSymbol} for USDS to get rewards"
 msgstr ""
 
 #: src/modules/balances/components/BalancesModuleShowcase.tsx
@@ -664,19 +682,15 @@ msgid "Upgrade stats"
 msgstr ""
 
 #: src/modules/app/hooks/useActionForToken.tsx
-msgid "Upgrade your {0} {1} to SKY"
+msgid "Upgrade your {formattedBalance} {upperSymbol} to SKY"
 msgstr ""
 
 #: src/modules/app/hooks/useActionForToken.tsx
-msgid "Upgrade your {0} {1} to USDS"
+msgid "Upgrade your {formattedBalance} {upperSymbol} to USDS"
 msgstr ""
 
 #: src/modules/app/hooks/useActionForToken.tsx
-msgid "Upgrade your {0} {1} to USDS to get rewards"
-msgstr ""
-
-#: src/modules/balances/components/BalancesModuleShowcase.tsx
-msgid "Upgrade your DAI"
+msgid "Upgrade your {formattedBalance} {upperSymbol} to USDS to get rewards"
 msgstr ""
 
 #: src/modules/balances/components/BalancesModuleShowcase.tsx
@@ -720,11 +734,11 @@ msgid "View details"
 msgstr ""
 
 #: src/modules/ui/components/historyTable/HistoryRow.tsx
-msgid "View transaction on CoW Explorer"
+msgid "View transaction on {explorerName}"
 msgstr ""
 
 #: src/modules/ui/components/historyTable/HistoryRow.tsx
-msgid "View transaction on Etherscan"
+msgid "View transaction on CoW Explorer"
 msgstr ""
 
 #: src/modules/auth/components/UnauthorizedPage.tsx
@@ -757,10 +771,6 @@ msgstr ""
 
 #: src/modules/layout/components/ConnectCard.tsx
 msgid "Your DeFi journey with Sky is just beginning. Connect your wallet to access the decentralised Sky Protocol and upgrade your DAI to USDS, and your MKR to SKY. Unlocking all the Sky Protocol has to offer, without giving up control, is easy."
-msgstr ""
-
-#: src/modules/layout/components/ConnectCard.tsx
-msgid "Your DeFi journey with Sky is just beginning. Connect your wallet to access the decentralised Sky Protocol and upgrade your DAI to USDS. Unlocking all the Sky Protocol has to offer, without giving up control, is easy."
 msgstr ""
 
 #: src/modules/balances/components/BalancesDetails.tsx

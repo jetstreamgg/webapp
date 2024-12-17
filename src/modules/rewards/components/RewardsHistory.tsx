@@ -22,7 +22,7 @@ export function RewardsHistory({ rewardContract }: { rewardContract: RewardContr
     () => rewardContractHistory?.map(s => s.blockTimestamp),
     [rewardContractHistory]
   );
-  const formattedDates = useFormatDates(memoizedDates, i18n.locale, 'MMMM d, yyyy, h:mm a');
+  const formattedDates = useFormatDates(memoizedDates, i18n.locale, 'MMM d, yyyy, h:mm a');
 
   // map reward contract history to rows
   const history = rewardContractHistory?.map((f, index) => ({

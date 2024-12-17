@@ -20,14 +20,25 @@ export const UnsupportedNetworkPage = ({ children }: { children: React.ReactNode
               </Text>
               <Text className="mb-10 font-graphik text-text">
                 <Trans>
-                  Only Ethereum Mainnet is supported at this time.
+                  Only Ethereum Mainnet and Base are supported at this time.
                   <br />
                   Please switch networks to continue.
                 </Trans>
               </Text>
-              <Button onClick={() => switchChain({ chainId: chains[0].id })}>
-                Switch to {chains[0].name}
-              </Button>
+              <div className="flex flex-wrap gap-2">
+                {/* This will display buttons for all supported networks for the current Wagmi config.
+                 * For production this would only use Mainnet and Base */}
+                {chains.map(({ name, id }) => (
+                  <Button
+                    variant="connect"
+                    className="border-transparent bg-primary hover:border-transparent focus:border-transparent"
+                    key={id}
+                    onClick={() => switchChain({ chainId: id })}
+                  >
+                    Switch to {name}
+                  </Button>
+                ))}
+              </div>
             </div>
           </div>
         </DialogContent>

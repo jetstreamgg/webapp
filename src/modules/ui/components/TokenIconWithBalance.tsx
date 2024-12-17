@@ -10,12 +10,18 @@ interface TokenIconWithBalanceProps {
   };
   balance: string;
   className?: string;
+  chainId?: number;
 }
 
-export const TokenIconWithBalance: React.FC<TokenIconWithBalanceProps> = ({ token, balance, className }) => (
+export const TokenIconWithBalance: React.FC<TokenIconWithBalanceProps> = ({
+  token,
+  balance,
+  className,
+  chainId
+}) => (
   <div className={cn('flex items-center', className)}>
     {/* TODO the size should come from the width prop and not the class name */}
-    <TokenIcon className="h-6 w-6" token={token} width={24} />
+    <TokenIcon className="h-6 w-6" token={token} width={24} chainId={chainId} />
     <Text className="ml-2">
       {balance} {token.symbol} {token.symbol === 'CLE' ? 'Points' : ''}
     </Text>
