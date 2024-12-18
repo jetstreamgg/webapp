@@ -15,6 +15,7 @@ interface BalanceCardProps {
   token: {
     symbol: string;
     name: string;
+    decimals?: number;
   };
   label?: string;
   toggle?: React.ReactNode;
@@ -64,7 +65,9 @@ function BaseBalanceCard({
           <BaseBalanceCardContent label={label} toggle={toggle}>
             <TokenIconWithBalance
               token={token}
-              balance={typeof balance === 'string' ? balance : formatBigInt(balance)}
+              balance={
+                typeof balance === 'string' ? balance : formatBigInt(balance, { unit: token?.decimals || 18 })
+              }
             />
           </BaseBalanceCardContent>
         </LoadingErrorWrapper>
@@ -149,7 +152,7 @@ export function UnsuppliedBalanceCard({
 }: BalanceCardProps): React.ReactElement {
   return (
     <BaseBalanceCard
-      label={label || t`Remaining balance`}
+      label={label || t`Remaining ${token.symbol} balance`}
       balance={balance}
       icon={<Withdrawn />}
       iconEmpty={<WithdrawnEmpty />}
