@@ -137,7 +137,7 @@ export function SuppliedBalanceCard({
 }: BalanceCardProps): React.ReactElement {
   return (
     <BaseBalanceCard
-      label={label || t`Supplied to Savings`}
+      label={label || t`Savings balance`}
       balance={balance}
       icon={<Supplied />}
       iconEmpty={<SuppliedEmpty />}
