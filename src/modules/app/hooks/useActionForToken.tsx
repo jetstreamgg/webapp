@@ -116,7 +116,7 @@ export const useActionForToken = () => {
             [base.id]:
               lowerSymbol === 'usdt'
                 ? undefined
-                : !isRestricted
+                : isRestricted
                   ? {
                       label: t`Trade your ${formattedBalance} ${upperSymbol} for USDS`,
                       actionUrl: getQueryParams(
