@@ -53,7 +53,8 @@ export const restrictedTokenList = {
   ],
   [base.id]: [
     { ...usdc, address: usdcBaseAddress[base.id] },
-    { ...usds, address: usdsBaseAddress[base.id] }
+    { ...usds, address: usdsBaseAddress[base.id] },
+    { ...eth, address: ETH_ADDRESS }
   ],
   [tenderlyBase.id]: [
     { ...usdc, address: usdcBaseAddress[TENDERLY_BASE_CHAIN_ID] },
