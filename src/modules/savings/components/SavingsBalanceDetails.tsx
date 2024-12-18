@@ -3,6 +3,7 @@ import { SuppliedBalanceCard, UnsuppliedBalanceCard } from '@/modules/ui/compone
 import { useTokenBalance, usdcBaseAddress } from '@jetstreamgg/hooks';
 import { useChainId, useAccount } from 'wagmi';
 import { isBaseChainId } from '@jetstreamgg/utils';
+import { useSsrAssetsToShares, TOKENS } from '@jetstreamgg/hooks';
 
 export function SavingsBalanceDetails() {
   const chainId = useChainId();
@@ -19,6 +20,8 @@ export function SavingsBalanceDetails() {
   const usdsToken = { name: 'USDS', symbol: 'USDS' };
   const usdcToken = { name: 'USDC', symbol: 'USDC', decimals: 6 };
 
+  const { formatted } = useSsrAssetsToShares(data?.userSavingsBalance || 0n, TOKENS.usds);
+
   const SuppliedSavingsBalanceCard = () => {
     return (
       <SuppliedBalanceCard
@@ -26,6 +29,7 @@ export function SavingsBalanceDetails() {
         isLoading={isLoading}
         token={usdsToken}
         error={error}
+        afterBalance={isBase ? ` (${formatted} sUSDS)` : undefined}
       />
     );
   };

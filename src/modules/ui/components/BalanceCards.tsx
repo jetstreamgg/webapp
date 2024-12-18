@@ -20,6 +20,7 @@ interface BalanceCardProps {
   label?: string;
   toggle?: React.ReactNode;
   error?: Error | null;
+  afterBalance?: string;
 }
 
 interface BaseBalanceCardProps extends BalanceCardProps {
@@ -40,7 +41,8 @@ function BaseBalanceCard({
   isLoading,
   token,
   className,
-  error
+  error,
+  afterBalance
 }: BaseBalanceCardProps): React.ReactElement {
   const isPositiveBalance = useMemo(() => {
     if (typeof balance === 'bigint') {
@@ -68,6 +70,7 @@ function BaseBalanceCard({
               balance={
                 typeof balance === 'string' ? balance : formatBigInt(balance, { unit: token?.decimals || 18 })
               }
+              afterBalance={afterBalance}
             />
           </BaseBalanceCardContent>
         </LoadingErrorWrapper>
@@ -128,7 +131,8 @@ export function SuppliedBalanceCard({
   isLoading,
   token,
   label,
-  error
+  error,
+  afterBalance
 }: BalanceCardProps): React.ReactElement {
   return (
     <BaseBalanceCard
@@ -139,6 +143,7 @@ export function SuppliedBalanceCard({
       isLoading={isLoading}
       token={token}
       error={error}
+      afterBalance={afterBalance}
     />
   );
 }
