@@ -8,15 +8,13 @@ import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 import { LoadingErrorWrapper } from './LoadingErrorWrapper';
 import { Text } from '@/modules/layout/components/Typography';
+import { Token } from '@jetstreamgg/hooks';
+import { useChainId } from 'wagmi';
 
 interface BalanceCardProps {
   balance: bigint | string;
   isLoading: boolean;
-  token: {
-    symbol: string;
-    name: string;
-    decimals?: number;
-  };
+  token: Pick<Token, 'symbol' | 'name'> & Partial<Pick<Token, 'decimals'>>;
   label?: string;
   toggle?: React.ReactNode;
   error?: Error | null;
@@ -44,6 +42,7 @@ function BaseBalanceCard({
   error,
   afterBalance
 }: BaseBalanceCardProps): React.ReactElement {
+  const chainId = useChainId();
   const isPositiveBalance = useMemo(() => {
     if (typeof balance === 'bigint') {
       return balance > 0n;
@@ -54,6 +53,8 @@ function BaseBalanceCard({
     }
     return false;
   }, [balance]);
+
+  const decimals = typeof token.decimals === 'number' ? token.decimals : token.decimals?.[chainId];
 
   return (
     <Card variant="stats" className={cn('flex justify-between', className)}>
@@ -68,7 +69,7 @@ function BaseBalanceCard({
             <TokenIconWithBalance
               token={token}
               balance={
-                typeof balance === 'string' ? balance : formatBigInt(balance, { unit: token?.decimals || 18 })
+                typeof balance === 'string' ? balance : formatBigInt(balance, { unit: decimals || 18 })
               }
               afterBalance={afterBalance}
             />
