@@ -326,7 +326,7 @@ msgid "Reject"
 msgstr ""
 
 #: src/modules/ui/components/BalanceCards.tsx
-msgid "Remaining balance"
+msgid "Remaining {0} balance"
 msgstr ""
 
 #: src/modules/seal/components/SealHistory.tsx
@@ -368,6 +368,10 @@ msgstr ""
 
 #: src/modules/balances/components/BalancesModuleShowcase.tsx
 msgid "Savings"
+msgstr ""
+
+#: src/modules/ui/components/BalanceCards.tsx
+msgid "Savings balance"
 msgstr ""
 
 #: src/modules/savings/components/SavingsSuppliersCard.tsx
@@ -469,10 +473,6 @@ msgstr ""
 #: src/modules/app/hooks/useActionForToken.tsx
 #: src/modules/app/hooks/useActionForToken.tsx
 msgid "Start saving with your {formattedBalance} {upperSymbol}"
-msgstr ""
-
-#: src/modules/ui/components/BalanceCards.tsx
-msgid "Supplied to Savings"
 msgstr ""
 
 #: src/modules/rewards/components/RewardsTokenInfo.tsx
@@ -769,6 +769,10 @@ msgstr ""
 msgid "Your access is restricted. For more information, please refer to our {0}."
 msgstr ""
 
+#: src/modules/savings/components/SavingsDetails.tsx
+msgid "Your balances"
+msgstr ""
+
 #: src/modules/layout/components/ConnectCard.tsx
 msgid "Your DeFi journey with Sky is just beginning. Connect your wallet to access the decentralised Sky Protocol and upgrade your DAI to USDS, and your MKR to SKY. Unlocking all the Sky Protocol has to offer, without giving up control, is easy."
 msgstr ""
@@ -807,10 +811,6 @@ msgstr ""
 
 #: src/modules/upgrade/components/UpgradeDetails.tsx
 msgid "Your Upgrade/Revert transaction history"
-msgstr ""
-
-#: src/modules/savings/components/SavingsDetails.tsx
-msgid "Your USDS balances"
 msgstr ""
 
 #: src/modules/layout/components/UnsupportedNetworkPage.tsx
