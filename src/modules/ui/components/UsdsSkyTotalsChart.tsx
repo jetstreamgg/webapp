@@ -1,4 +1,5 @@
 import { useTokenChartInfo, usdsAddress, skyAddress } from '@jetstreamgg/hooks';
+import { isBaseChainId } from '@jetstreamgg/utils';
 import { Chart, TimeFrame } from '@/modules/ui/components/Chart';
 import { useState } from 'react';
 import { ErrorBoundary } from '@/modules/layout/components/ErrorBoundary';
@@ -17,8 +18,10 @@ export function UsdsSkyTotalsChart() {
   const [timeFrame, setTimeFrame] = useState<TimeFrame>('w');
   const chainId = useChainId();
 
-  const nstTokenAddress = usdsAddress[chainId as keyof typeof usdsAddress];
-  const skyTokenAddress = skyAddress[chainId as keyof typeof skyAddress];
+  const isBase = isBaseChainId(chainId);
+
+  const nstTokenAddress = isBase ? usdsAddress[1] : usdsAddress[chainId as keyof typeof usdsAddress]; // Display mainnet data on Base
+  const skyTokenAddress = isBase ? skyAddress[1] : skyAddress[chainId as keyof typeof skyAddress]; // Display mainnet data on Base
 
   const {
     data: usdsData,

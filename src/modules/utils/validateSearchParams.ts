@@ -1,15 +1,26 @@
 import { RewardContract } from '@jetstreamgg/hooks';
 import { SUPPORTED_TOKEN_SYMBOLS } from '@jetstreamgg/widgets';
-import { QueryParams, IntentMapping, VALID_LINKED_ACTIONS } from '@/lib/constants';
+import {
+  QueryParams,
+  IntentMapping,
+  VALID_LINKED_ACTIONS,
+  CHAIN_WIDGET_MAP,
+  mapQueryParamToIntent,
+  COMING_SOON_MAP
+} from '@/lib/constants';
 import { Intent } from '@/lib/enums';
 import { defaultConfig } from '../config/default-config';
+import { isBaseChainId } from '@jetstreamgg/utils';
 
 export const validateSearchParams = (
   searchParams: URLSearchParams,
   rewardContracts: RewardContract[],
   widget: string,
-  setSelectedRewardContract: (rewardContract?: RewardContract) => void
+  setSelectedRewardContract: (rewardContract?: RewardContract) => void,
+  chainId: number
 ) => {
+  const isBaseChain = isBaseChainId(chainId);
+
   searchParams.forEach((value, key) => {
     // removes any query param not found in QueryParams
     if (!Object.values(QueryParams).includes(key as QueryParams)) {
@@ -22,7 +33,12 @@ export const validateSearchParams = (
     }
 
     // removes widget param is value is not valid
-    if (key === QueryParams.Widget && !Object.values(IntentMapping).includes(value.toLowerCase())) {
+    if (
+      key === QueryParams.Widget &&
+      (!Object.values(IntentMapping).includes(value.toLowerCase()) ||
+        !CHAIN_WIDGET_MAP[chainId].includes(mapQueryParamToIntent(value)) ||
+        COMING_SOON_MAP[chainId]?.includes(mapQueryParamToIntent(value)))
+    ) {
       searchParams.delete(key);
     }
 
@@ -50,13 +66,18 @@ export const validateSearchParams = (
 
     // validate source token
     if (key === QueryParams.SourceToken) {
-      // source token is only valid for upgrade and trade, remove if widget value is not correct
+      // source token is only valid for upgrade and trade in Mainnet, and for savings and trade in Base, remove if widget value is not correct
       const widgetParam = searchParams.get(QueryParams.Widget);
       if (
         !widgetParam ||
-        ![IntentMapping[Intent.UPGRADE_INTENT], IntentMapping[Intent.TRADE_INTENT]].includes(
+        (![IntentMapping[Intent.UPGRADE_INTENT], IntentMapping[Intent.TRADE_INTENT]].includes(
           widgetParam.toLowerCase()
-        )
+        ) &&
+          !isBaseChain) ||
+        (![IntentMapping[Intent.SAVINGS_INTENT], IntentMapping[Intent.TRADE_INTENT]].includes(
+          widgetParam.toLowerCase()
+        ) &&
+          isBaseChain)
       ) {
         searchParams.delete(key);
       }

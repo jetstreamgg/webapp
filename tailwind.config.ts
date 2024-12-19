@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from 'tailwindcss';
+
+export default {
   darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -75,7 +76,7 @@ module.exports = {
         chartSelect: 'rgba(22, 17, 53, 1)'
       },
       fontWeight: {
-        'custom-450': 450
+        'custom-450': '450'
       },
       backgroundImage: {
         // TODO: All button states need to either be in 'colors' or 'backgroundImage', or they will overlap. To use gradients, they must be in 'backgroundImage'
@@ -113,7 +114,7 @@ module.exports = {
         },
         'slide-down': {
           from: {
-            height: 0
+            height: '0'
           },
           to: {
             height: 'var(--radix-collapsible-content-height)'
@@ -124,7 +125,7 @@ module.exports = {
             height: 'var(--radix-collapsible-content-height)'
           },
           to: {
-            height: 0
+            height: '0'
           }
         }
       },
@@ -165,4 +166,4 @@ module.exports = {
     }
   },
   plugins: [require('tailwindcss-animate'), require('@tailwindcss/container-queries')]
-};
+} satisfies Config;

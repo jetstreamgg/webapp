@@ -6,6 +6,7 @@ import {
   RewardContract,
   TOKENS
 } from '@jetstreamgg/hooks';
+import { isBaseChainId } from '@jetstreamgg/utils';
 import { t } from '@lingui/macro';
 import { useState, useEffect, useRef } from 'react';
 import { useAccount, useChainId } from 'wagmi';
@@ -37,6 +38,7 @@ type TokenBalance = {
 
 // Note: some suggested actions are disabled because they aren't compatible with the Rate highlight cards, leaving them here in case we want to re-enable
 const fetchUserSuggestedActions = (
+  chainId: number,
   tokenBalances?: TokenBalance[],
   rewardContracts?: RewardContract[]
 ): {
@@ -55,172 +57,176 @@ const fetchUserSuggestedActions = (
   const skyRewardContract = rewardContracts?.find(
     (rewardContract: RewardContract) => rewardContract.rewardToken === TOKENS.sky
   );
+  const baseChainId = isBaseChainId(chainId);
 
-  // if user has DAI or MKR, add suggestion to upgrade, then get rewards or save
-  // DAI actions
-  const daiBalance = tokenBalances?.find((token: TokenBalance) => token.symbol === 'DAI');
-  if (daiBalance && daiBalance.value > 0n) {
-    linkedActions.push({
-      primaryToken: 'DAI',
-      secondaryToken: 'USDS',
-      title: t`Upgrade and Save`,
-      balance: daiBalance.formatted,
-      stepOne: t`Upgrade DAI to USDS`,
-      stepTwo: t`Earn with USDS`,
-      url: `/?${Widget}=${UPGRADE}&${InputAmount}=${daiBalance.formatted}&${LinkedAction}=${SAVINGS}&${SourceToken}=DAI`,
-      intent: IntentMapping.UPGRADE_INTENT,
-      la: IntentMapping.SAVINGS_INTENT,
-      // note: weights are arbitrary for now but can give us a way to sort the most relevant actions to the front
-      weight: 9,
-      type: 'linked'
-    });
-    linkedActions.push({
-      primaryToken: 'DAI',
-      secondaryToken: 'USDS',
-      title: t`Upgrade and get rewards`,
-      balance: daiBalance.formatted,
-      stepOne: t`Upgrade DAI to USDS`,
-      stepTwo: t`Get SKY rewards with USDS`,
-      url: `/?${Widget}=${UPGRADE}&${InputAmount}=${daiBalance.formatted}&${LinkedAction}=${REWARDS}${skyRewardContract ? `&reward=${skyRewardContract.contractAddress}&${SourceToken}=DAI` : ''}`,
-      intent: IntentMapping.UPGRADE_INTENT,
-      la: IntentMapping.REWARDS_INTENT,
-      weight: 10,
-      type: 'linked'
-    });
-    suggestedActions.push({
-      primaryToken: 'DAI',
-      secondaryToken: 'USDS',
-      balance: daiBalance.formatted,
-      title: t`Upgrade DAI to USDS`,
-      url: `/?${Widget}=${UPGRADE}&${InputAmount}=${daiBalance.formatted}&${SourceToken}=DAI`,
-      intent: IntentMapping.UPGRADE_INTENT,
-      weight: 8,
-      type: 'suggested'
-    });
-  }
+  // Limit the Linked and Suggested actions to Mainnet and Tenderly mainnet for now
+  if (!baseChainId) {
+    // if user has DAI or MKR, add suggestion to upgrade, then get rewards or save
+    // DAI actions
+    const daiBalance = tokenBalances?.find((token: TokenBalance) => token.symbol === 'DAI');
+    if (daiBalance && daiBalance.value > 0n) {
+      linkedActions.push({
+        primaryToken: 'DAI',
+        secondaryToken: 'USDS',
+        title: t`Upgrade and Save`,
+        balance: daiBalance.formatted,
+        stepOne: t`Upgrade DAI to USDS`,
+        stepTwo: t`Earn with USDS`,
+        url: `/?${Widget}=${UPGRADE}&${InputAmount}=${daiBalance.formatted}&${LinkedAction}=${SAVINGS}&${SourceToken}=DAI`,
+        intent: IntentMapping.UPGRADE_INTENT,
+        la: IntentMapping.SAVINGS_INTENT,
+        // note: weights are arbitrary for now but can give us a way to sort the most relevant actions to the front
+        weight: 9,
+        type: 'linked'
+      });
+      linkedActions.push({
+        primaryToken: 'DAI',
+        secondaryToken: 'USDS',
+        title: t`Upgrade and get rewards`,
+        balance: daiBalance.formatted,
+        stepOne: t`Upgrade DAI to USDS`,
+        stepTwo: t`Get SKY rewards with USDS`,
+        url: `/?${Widget}=${UPGRADE}&${InputAmount}=${daiBalance.formatted}&${LinkedAction}=${REWARDS}${skyRewardContract ? `&reward=${skyRewardContract.contractAddress}&${SourceToken}=DAI` : ''}`,
+        intent: IntentMapping.UPGRADE_INTENT,
+        la: IntentMapping.REWARDS_INTENT,
+        weight: 10,
+        type: 'linked'
+      });
+      suggestedActions.push({
+        primaryToken: 'DAI',
+        secondaryToken: 'USDS',
+        balance: daiBalance.formatted,
+        title: t`Upgrade DAI to USDS`,
+        url: `/?${Widget}=${UPGRADE}&${InputAmount}=${daiBalance.formatted}&${SourceToken}=DAI`,
+        intent: IntentMapping.UPGRADE_INTENT,
+        weight: 8,
+        type: 'suggested'
+      });
+    }
 
-  // MKR actions
-  const mkrBalance = tokenBalances?.find((token: TokenBalance) => token.symbol === 'MKR');
-  if (mkrBalance && mkrBalance.value > 0n) {
-    suggestedActions.push({
-      primaryToken: 'MKR',
-      secondaryToken: 'SKY',
-      balance: mkrBalance.formatted,
-      title: t`Upgrade MKR to SKY`,
-      // TODO we need to handle input currency
-      url: `/?${Widget}=${UPGRADE}&${InputAmount}=${mkrBalance.formatted}&${SourceToken}=MKR`,
-      intent: IntentMapping.UPGRADE_INTENT,
-      weight: 7,
-      type: 'suggested'
-    });
-  }
+    // MKR actions
+    const mkrBalance = tokenBalances?.find((token: TokenBalance) => token.symbol === 'MKR');
+    if (mkrBalance && mkrBalance.value > 0n) {
+      suggestedActions.push({
+        primaryToken: 'MKR',
+        secondaryToken: 'SKY',
+        balance: mkrBalance.formatted,
+        title: t`Upgrade MKR to SKY`,
+        // TODO we need to handle input currency
+        url: `/?${Widget}=${UPGRADE}&${InputAmount}=${mkrBalance.formatted}&${SourceToken}=MKR`,
+        intent: IntentMapping.UPGRADE_INTENT,
+        weight: 7,
+        type: 'suggested'
+      });
+    }
 
-  // if user has USDC or USDT or ETH, suggest to trade to USDS and then get rewards or save
-  // USDC actions
-  const usdcBalance = tokenBalances?.find((token: TokenBalance) => token.symbol === 'USDC');
-  if (usdcBalance && usdcBalance.value > 0n) {
-    linkedActions.push({
-      balance: usdcBalance.formatted,
-      primaryToken: 'USDC',
-      secondaryToken: 'USDS',
-      title: t`Trade and start saving`,
-      stepOne: t`Trade USDC for USDS`,
-      stepTwo: t`Access Sky Savings Rate with USDS`,
-      url: `/?${Widget}=${TRADE}&${SourceToken}=USDC&${InputAmount}=${usdcBalance.formatted}&${TargetToken}=USDS&${LinkedAction}=${SAVINGS}`,
-      intent: IntentMapping.TRADE_INTENT,
-      la: IntentMapping.SAVINGS_INTENT,
-      weight: 6,
-      type: 'linked'
-    });
-    linkedActions.push({
-      primaryToken: 'USDC',
-      secondaryToken: 'USDS',
-      balance: usdcBalance.formatted,
-      title: t`Trade and get rewards`,
-      stepOne: t`Trade USDC for USDS`,
-      stepTwo: t`Get SKY rewards with USDS`,
-      url: `/?${Widget}=${TRADE}&${SourceToken}=USDC&${InputAmount}=${usdcBalance.formatted}&${TargetToken}=USDS&${LinkedAction}=${REWARDS}${skyRewardContract ? `&reward=${skyRewardContract.contractAddress}` : ''}`,
-      intent: IntentMapping.TRADE_INTENT,
-      la: IntentMapping.REWARDS_INTENT,
-      weight: 7,
-      type: 'linked'
-    });
-    suggestedActions.push({
-      primaryToken: 'USDC',
-      secondaryToken: 'USDS',
-      balance: usdcBalance.formatted,
-      title: t`Trade USDC for USDS`,
-      url: `/?${Widget}=${TRADE}&${SourceToken}=USDC&${InputAmount}=${usdcBalance.formatted}&${TargetToken}=USDS`,
-      intent: IntentMapping.TRADE_INTENT,
-      weight: 5,
-      type: 'suggested'
-    });
-  }
+    // if user has USDC or USDT or ETH, suggest to trade to USDS and then get rewards or save
+    // USDC actions
+    const usdcBalance = tokenBalances?.find((token: TokenBalance) => token.symbol === 'USDC');
+    if (usdcBalance && usdcBalance.value > 0n) {
+      linkedActions.push({
+        balance: usdcBalance.formatted,
+        primaryToken: 'USDC',
+        secondaryToken: 'USDS',
+        title: t`Trade and start saving`,
+        stepOne: t`Trade USDC for USDS`,
+        stepTwo: t`Access Sky Savings Rate with USDS`,
+        url: `/?${Widget}=${TRADE}&${SourceToken}=USDC&${InputAmount}=${usdcBalance.formatted}&${TargetToken}=USDS&${LinkedAction}=${SAVINGS}`,
+        intent: IntentMapping.TRADE_INTENT,
+        la: IntentMapping.SAVINGS_INTENT,
+        weight: 6,
+        type: 'linked'
+      });
+      linkedActions.push({
+        primaryToken: 'USDC',
+        secondaryToken: 'USDS',
+        balance: usdcBalance.formatted,
+        title: t`Trade and get rewards`,
+        stepOne: t`Trade USDC for USDS`,
+        stepTwo: t`Get SKY rewards with USDS`,
+        url: `/?${Widget}=${TRADE}&${SourceToken}=USDC&${InputAmount}=${usdcBalance.formatted}&${TargetToken}=USDS&${LinkedAction}=${REWARDS}${skyRewardContract ? `&reward=${skyRewardContract.contractAddress}` : ''}`,
+        intent: IntentMapping.TRADE_INTENT,
+        la: IntentMapping.REWARDS_INTENT,
+        weight: 7,
+        type: 'linked'
+      });
+      suggestedActions.push({
+        primaryToken: 'USDC',
+        secondaryToken: 'USDS',
+        balance: usdcBalance.formatted,
+        title: t`Trade USDC for USDS`,
+        url: `/?${Widget}=${TRADE}&${SourceToken}=USDC&${InputAmount}=${usdcBalance.formatted}&${TargetToken}=USDS`,
+        intent: IntentMapping.TRADE_INTENT,
+        weight: 5,
+        type: 'suggested'
+      });
+    }
 
-  // USDT actions
-  const usdtBalance = tokenBalances?.find((token: TokenBalance) => token.symbol === 'USDT');
-  if (usdtBalance && usdtBalance.value > 0n) {
-    linkedActions.push({
-      balance: usdtBalance.formatted,
-      primaryToken: 'USDT',
-      secondaryToken: 'USDS',
-      title: t`Trade and start saving`,
-      stepOne: t`Trade USDT for USDS`,
-      stepTwo: t`Access Sky Savings Rate with USDS`,
-      url: `/?${Widget}=${TRADE}&${SourceToken}=USDT&${InputAmount}=${usdtBalance.formatted}&${TargetToken}=USDS&${LinkedAction}=${SAVINGS}`,
-      intent: IntentMapping.TRADE_INTENT,
-      la: IntentMapping.SAVINGS_INTENT,
-      weight: 6,
-      type: 'linked'
-    });
-    linkedActions.push({
-      primaryToken: 'USDT',
-      secondaryToken: 'USDS',
-      title: t`Trade and get rewards`,
-      balance: usdtBalance.formatted,
-      stepOne: t`Trade USDT for USDS`,
-      stepTwo: t`Get SKY rewards with USDS`,
-      url: `/?${Widget}=${TRADE}&${SourceToken}=USDT&${InputAmount}=${usdtBalance.formatted}&${TargetToken}=USDS&${LinkedAction}=${REWARDS}${skyRewardContract ? `&reward=${skyRewardContract.contractAddress}` : ''}`,
-      intent: IntentMapping.TRADE_INTENT,
-      la: IntentMapping.REWARDS_INTENT,
-      weight: 6,
-      type: 'linked'
-    });
-    suggestedActions.push({
-      primaryToken: 'USDT',
-      secondaryToken: 'USDS',
-      title: t`Trade USDT for USDS`,
-      balance: usdtBalance.formatted,
-      url: `/?${Widget}=${TRADE}&${SourceToken}=USDT&${InputAmount}=${usdtBalance.formatted}&${TargetToken}=USDS`,
-      intent: IntentMapping.TRADE_INTENT,
-      weight: 5,
-      type: 'suggested'
-    });
-  }
+    // USDT actions
+    const usdtBalance = tokenBalances?.find((token: TokenBalance) => token.symbol === 'USDT');
+    if (usdtBalance && usdtBalance.value > 0n) {
+      linkedActions.push({
+        balance: usdtBalance.formatted,
+        primaryToken: 'USDT',
+        secondaryToken: 'USDS',
+        title: t`Trade and start saving`,
+        stepOne: t`Trade USDT for USDS`,
+        stepTwo: t`Access Sky Savings Rate with USDS`,
+        url: `/?${Widget}=${TRADE}&${SourceToken}=USDT&${InputAmount}=${usdtBalance.formatted}&${TargetToken}=USDS&${LinkedAction}=${SAVINGS}`,
+        intent: IntentMapping.TRADE_INTENT,
+        la: IntentMapping.SAVINGS_INTENT,
+        weight: 6,
+        type: 'linked'
+      });
+      linkedActions.push({
+        primaryToken: 'USDT',
+        secondaryToken: 'USDS',
+        title: t`Trade and get rewards`,
+        balance: usdtBalance.formatted,
+        stepOne: t`Trade USDT for USDS`,
+        stepTwo: t`Get SKY rewards with USDS`,
+        url: `/?${Widget}=${TRADE}&${SourceToken}=USDT&${InputAmount}=${usdtBalance.formatted}&${TargetToken}=USDS&${LinkedAction}=${REWARDS}${skyRewardContract ? `&reward=${skyRewardContract.contractAddress}` : ''}`,
+        intent: IntentMapping.TRADE_INTENT,
+        la: IntentMapping.REWARDS_INTENT,
+        weight: 6,
+        type: 'linked'
+      });
+      suggestedActions.push({
+        primaryToken: 'USDT',
+        secondaryToken: 'USDS',
+        title: t`Trade USDT for USDS`,
+        balance: usdtBalance.formatted,
+        url: `/?${Widget}=${TRADE}&${SourceToken}=USDT&${InputAmount}=${usdtBalance.formatted}&${TargetToken}=USDS`,
+        intent: IntentMapping.TRADE_INTENT,
+        weight: 5,
+        type: 'suggested'
+      });
+    }
 
-  // if user has USDS, suggest to get rewards or save
-  const usdsBalance = tokenBalances?.find((token: TokenBalance) => token.symbol === 'USDS');
-  if (usdsBalance && usdsBalance.value > 0n) {
-    suggestedActions.push({
-      primaryToken: 'USDS',
-      secondaryToken: 'USDS',
-      title: t`Start saving`,
-      balance: usdsBalance.formatted,
-      url: `/?${Widget}=${SAVINGS}&${InputAmount}=${usdsBalance.formatted}`,
-      intent: IntentMapping.SAVINGS_INTENT,
-      weight: 6,
-      type: 'suggested'
-    });
-    suggestedActions.push({
-      primaryToken: 'USDS',
-      secondaryToken: 'SKY',
-      title: t`Start getting rewards`,
-      balance: usdsBalance.formatted,
-      url: `/?${Widget}=${REWARDS}&${InputAmount}=${usdsBalance.formatted}${skyRewardContract ? `&reward=${skyRewardContract.contractAddress}` : ''}`,
-      intent: IntentMapping.REWARDS_INTENT,
-      weight: 7,
-      type: 'suggested'
-    });
+    // if user has USDS, suggest to get rewards or save
+    const usdsBalance = tokenBalances?.find((token: TokenBalance) => token.symbol === 'USDS');
+    if (usdsBalance && usdsBalance.value > 0n) {
+      suggestedActions.push({
+        primaryToken: 'USDS',
+        secondaryToken: 'USDS',
+        title: t`Start saving`,
+        balance: usdsBalance.formatted,
+        url: `/?${Widget}=${SAVINGS}&${InputAmount}=${usdsBalance.formatted}`,
+        intent: IntentMapping.SAVINGS_INTENT,
+        weight: 6,
+        type: 'suggested'
+      });
+      suggestedActions.push({
+        primaryToken: 'USDS',
+        secondaryToken: 'SKY',
+        title: t`Start getting rewards`,
+        balance: usdsBalance.formatted,
+        url: `/?${Widget}=${REWARDS}&${InputAmount}=${usdsBalance.formatted}${skyRewardContract ? `&reward=${skyRewardContract.contractAddress}` : ''}`,
+        intent: IntentMapping.REWARDS_INTENT,
+        weight: 7,
+        type: 'suggested'
+      });
+    }
   }
 
   const isRestricted = import.meta.env.VITE_RESTRICTED_BUILD === 'true';
@@ -290,7 +296,7 @@ export const useUserSuggestedActions = () => {
       if (address && tokenBalances) {
         setIsLoading(true);
         try {
-          const result = fetchUserSuggestedActions(tokenBalances, rewardContracts);
+          const result = fetchUserSuggestedActions(chainId, tokenBalances, rewardContracts);
           setData(result);
           setError(undefined);
         } catch (err) {

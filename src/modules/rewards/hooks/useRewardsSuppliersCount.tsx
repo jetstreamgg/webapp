@@ -1,8 +1,9 @@
 import { useAvailableTokenRewardContracts, useRewardsChartInfo } from '@jetstreamgg/hooks';
 import { useChainId } from 'wagmi';
 
-export const useRewardsSuppliersCount = () => {
-  const chainId = useChainId();
+export const useRewardsSuppliersCount = (overrideChainId?: number) => {
+  const connectedChainId = useChainId();
+  const chainId = overrideChainId ?? connectedChainId;
   const rewardContracts = useAvailableTokenRewardContracts(chainId);
 
   // TODO: need to do this in a loop rather than hardcoding reward contracts

@@ -120,19 +120,36 @@ export function WidgetNavigation({ widgetContent, intent, children }: WidgetNavi
         {/* TODO justify-around only when restricted */}
         <TabsList
           className={`${isMobile ? 'space-x-1' : ''} sticky top-0 z-20 flex w-full justify-around rounded-none rounded-t-3xl border-b p-3 backdrop-blur-2xl md:border-none md:p-0 md:backdrop-filter-none`}
+          data-testid="widget-navigation"
         >
-          {widgetContent.map(([widgetIntent, label, icon]) => (
-            <TabsTrigger
-              key={widgetIntent}
-              variant="icons"
-              value={widgetIntent}
-              className={intent === widgetIntent ? cn(tabGlowClasses, 'px-1 md:px-2') : 'px-1 md:px-2'}
-            >
-              {!isMobile && icon({ color: intent === widgetIntent ? 'white' : 'rgba(198, 194, 255, 0.8)' })}
-              <Text variant="small">
-                <Trans>{label}</Trans>
-              </Text>
-            </TabsTrigger>
+          {widgetContent.map(([widgetIntent, label, icon, , comingSoon, options]) => (
+            <div key={widgetIntent}>
+              <TabsTrigger
+                variant="icons"
+                value={widgetIntent}
+                className={cn(
+                  'px-1 text-textSecondary data-[state=active]:text-text md:px-2',
+                  'before:opacity-0',
+                  'disabled:cursor-not-allowed disabled:text-[rgba(198,194,255,0.4)] disabled:before:opacity-0 disabled:hover:before:opacity-0',
+                  tabGlowClasses,
+                  intent === widgetIntent && 'before:opacity-100 hover:before:opacity-100'
+                )}
+                disabled={options?.disabled || false}
+              >
+                {!isMobile && icon({ color: 'inherit' })}
+                <Text variant="small" className="text-inherit">
+                  <Trans>{label}</Trans>
+                </Text>
+                {comingSoon && (
+                  <Text
+                    variant="small"
+                    className="absolute left-1/2 top-0 rounded-full bg-primary px-1.5 py-0 text-textSecondary md:px-2 md:py-1"
+                  >
+                    <Trans>Soon</Trans>
+                  </Text>
+                )}
+              </TabsTrigger>
+            </div>
           ))}
         </TabsList>
         <LinkedActionWrapper />

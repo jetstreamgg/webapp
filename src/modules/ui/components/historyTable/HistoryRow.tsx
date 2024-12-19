@@ -2,8 +2,8 @@ import { TableCell, TableRow } from '@/components/ui/table';
 import { TokenIcon } from '@/modules/ui/components/TokenIcon';
 import { Text } from '@/modules/layout/components/Typography';
 import { ArrowRightLong } from '@/modules/icons';
-import { Trans } from '@lingui/macro';
-import { formatAddress, getCowExplorerLink, getEtherscanLink } from '@jetstreamgg/utils';
+import { t, Trans } from '@lingui/macro';
+import { formatAddress, getCowExplorerLink, getEtherscanLink, getExplorerName } from '@jetstreamgg/utils';
 import { ExternalLink } from '@/modules/layout/components/ExternalLink';
 import { CopyToClipboard } from '../CopyToClipboard';
 import { HistoryRow as HistoryRowType } from './types';
@@ -93,6 +93,8 @@ const HistoryRowContent = ({
   statusColumn,
   cowExplorerLink = false
 }: HistoryRowProps) => {
+  const explorerName = getExplorerName(chainId);
+
   const content = useMemo(
     () => [
       <Fragment key="first-content">
@@ -143,7 +145,7 @@ const HistoryRowContent = ({
                   {cowExplorerLink ? (
                     <Trans>View transaction on CoW Explorer</Trans>
                   ) : (
-                    <Trans>View transaction on Etherscan</Trans>
+                    t`View transaction on ${explorerName}`
                   )}
                 </Text>
                 <TooltipArrow width={12} height={8} />
