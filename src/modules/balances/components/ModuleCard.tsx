@@ -14,9 +14,14 @@ type ModuleCardProps = {
   title: string;
   intent: Intent;
   module: string;
+  hide?: boolean;
 };
 
-export const ModuleCard = ({ className, title, intent, module }: ModuleCardProps) => {
+export const ModuleCard = ({ className, title, intent, module, hide }: ModuleCardProps) => {
+  if (hide) {
+    return null;
+  }
+
   const url = useRetainedQueryParams(`/?widget=${mapIntentToQueryParam(intent)}`);
   return (
     <Link to={url} className="flex flex-1 basis-full flex-col xl:basis-[20%]">
