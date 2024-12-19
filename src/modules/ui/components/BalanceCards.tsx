@@ -8,17 +8,17 @@ import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 import { LoadingErrorWrapper } from './LoadingErrorWrapper';
 import { Text } from '@/modules/layout/components/Typography';
+import { Token } from '@jetstreamgg/hooks';
+import { useChainId } from 'wagmi';
 
 interface BalanceCardProps {
   balance: bigint | string;
   isLoading: boolean;
-  token: {
-    symbol: string;
-    name: string;
-  };
+  token: Pick<Token, 'symbol' | 'name'> & Partial<Pick<Token, 'decimals'>>;
   label?: string;
   toggle?: React.ReactNode;
   error?: Error | null;
+  afterBalance?: string;
 }
 
 interface BaseBalanceCardProps extends BalanceCardProps {
@@ -39,8 +39,10 @@ function BaseBalanceCard({
   isLoading,
   token,
   className,
-  error
+  error,
+  afterBalance
 }: BaseBalanceCardProps): React.ReactElement {
+  const chainId = useChainId();
   const isPositiveBalance = useMemo(() => {
     if (typeof balance === 'bigint') {
       return balance > 0n;
@@ -51,6 +53,8 @@ function BaseBalanceCard({
     }
     return false;
   }, [balance]);
+
+  const decimals = typeof token.decimals === 'number' ? token.decimals : token.decimals?.[chainId];
 
   return (
     <Card variant="stats" className={cn('flex justify-between', className)}>
@@ -64,7 +68,10 @@ function BaseBalanceCard({
           <BaseBalanceCardContent label={label} toggle={toggle}>
             <TokenIconWithBalance
               token={token}
-              balance={typeof balance === 'string' ? balance : formatBigInt(balance)}
+              balance={
+                typeof balance === 'string' ? balance : formatBigInt(balance, { unit: decimals || 18 })
+              }
+              afterBalance={afterBalance}
             />
           </BaseBalanceCardContent>
         </LoadingErrorWrapper>
@@ -125,17 +132,19 @@ export function SuppliedBalanceCard({
   isLoading,
   token,
   label,
-  error
+  error,
+  afterBalance
 }: BalanceCardProps): React.ReactElement {
   return (
     <BaseBalanceCard
-      label={label || t`Supplied to Savings`}
+      label={label || t`Savings balance`}
       balance={balance}
       icon={<Supplied />}
       iconEmpty={<SuppliedEmpty />}
       isLoading={isLoading}
       token={token}
       error={error}
+      afterBalance={afterBalance}
     />
   );
 }
@@ -149,7 +158,7 @@ export function UnsuppliedBalanceCard({
 }: BalanceCardProps): React.ReactElement {
   return (
     <BaseBalanceCard
-      label={label || t`Remaining balance`}
+      label={label || t`Remaining ${token.symbol} balance`}
       balance={balance}
       icon={<Withdrawn />}
       iconEmpty={<WithdrawnEmpty />}
