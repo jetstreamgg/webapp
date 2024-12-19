@@ -10,13 +10,7 @@ import { useSubgraphUrl } from '@/modules/app/hooks/useSubgraphUrl';
 
 export function SavingsHistory() {
   const subgraphUrl = useSubgraphUrl();
-  const {
-    data: savingsHistory,
-    isLoading: savingsHistoryLoading,
-    error
-  } = useSavingsHistory({
-    subgraphUrl
-  });
+  const { data: savingsHistory, isLoading: savingsHistoryLoading, error } = useSavingsHistory(subgraphUrl);
   const { i18n } = useLingui();
 
   const memoizedDates = useMemo(() => savingsHistory?.map(s => s.blockTimestamp), [savingsHistory]);
