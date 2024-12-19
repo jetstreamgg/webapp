@@ -49,6 +49,7 @@ Create a `.env` file in the root directory of the project. You can use the `.env
 - `VITE_TERMS_CHECKBOX_TEXT`: The text displayed next to the checkbox in the terms acceptance modal
 - `VITE_ENV_NAME`: (Optional) Environment name (e.g., 'development', 'staging', 'production')
 - `VITE_CF_PAGES_COMMIT_SHA`: (Optional) Git commit hash of the current build
+- `VITE_REFERRAL_CODE`: (Optional) Referral code for the app
 
 ## Running the App
 
