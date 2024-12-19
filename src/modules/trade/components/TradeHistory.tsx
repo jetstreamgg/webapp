@@ -1,13 +1,15 @@
 import { useMemo } from 'react';
-import { useTradeHistory } from '@jetstreamgg/hooks';
+import { getTokenDecimals, TokenForChain, useTradeHistory } from '@jetstreamgg/hooks';
 import { formatNumber, useFormatDates } from '@jetstreamgg/utils';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { HistoryTable } from '@/modules/ui/components/historyTable/HistoryTable';
 import { formatUnits } from 'viem';
+import { useChainId } from 'wagmi';
 
 export function TradeHistory() {
   const { data: tradeHistory, isLoading: tradeHistoryLoading, error } = useTradeHistory();
+  const chainId = useChainId();
   const { i18n } = useLingui();
   const formatTradeAmount = (input: bigint, decimals: number = 18): string => {
     return formatNumber(parseFloat(formatUnits(input, decimals)), { locale: i18n.locale, compact: true });
@@ -21,15 +23,15 @@ export function TradeHistory() {
 
   // map tradehistory to rows
   const history = tradeHistory?.map((s, index) => ({
-    id: s.id,
-    textLeft: formatTradeAmount(s.fromAmount, s.fromToken.decimals),
+    id: s.transactionHash,
+    textLeft: formatTradeAmount(s.fromAmount, getTokenDecimals(s.fromToken as TokenForChain, chainId)),
     tokenLeft: s.fromToken.symbol,
-    textRight: formatTradeAmount(s.toAmount, s.toToken.decimals),
+    textRight: formatTradeAmount(s.toAmount, getTokenDecimals(s.toToken as TokenForChain, chainId)),
     tokenRight: s.toToken.symbol,
     formattedDate: formattedDates.length > index ? formattedDates[index] : '',
     rawDate: s.blockTimestamp,
     transactionHash: s.transactionHash,
-    cowOrderStatus: s.cowOrderStatus
+    ...('cowOrderStatus' in s ? { cowOrderStatus: s.cowOrderStatus } : {})
   }));
 
   return (
