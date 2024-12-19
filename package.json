@@ -95,7 +95,7 @@
     "@lingui/format-po": "^4.7.0",
     "@lingui/swc-plugin": "^4.0.4",
     "@lingui/vite-plugin": "^4.7.0",
-    "@playwright/test": "^1.37.0",
+    "@playwright/test": "^1.49.1",
     "@tanstack/eslint-plugin-query": "^5.20.1",
     "@testing-library/react": "^14.1.2",
     "@types/node": "18.11.9",
