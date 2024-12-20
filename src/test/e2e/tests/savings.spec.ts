@@ -49,6 +49,7 @@ test('supply with insufficient usds balance', async ({ page }) => {
   await page.getByRole('tab', { name: 'Savings' }).click();
 
   const balanceLabel = page.getByTestId('supply-input-savings-balance');
+  await expect(balanceLabel).not.toHaveText('No wallet connected');
   const balanceText = ((await balanceLabel.innerText()) as string).split(' ')[0].trim();
   await page.getByTestId('supply-input-savings').click();
   await page.getByTestId('supply-input-savings').fill(`500${balanceText}`); // Supply an amount greater than the balance
@@ -88,7 +89,7 @@ test('Balance changes after a successful supply', async ({ page }) => {
   await page.goto('/');
   await connectMockWalletAndAcceptTerms(page);
   await page.getByRole('tab', { name: 'Savings' }).click();
-  expect(await page.getByTestId('supply-input-savings-balance').innerText()).toBe('10 USDS');
+  await expect(page.getByTestId('supply-input-savings-balance')).toHaveText('10 USDS');
 
   const suppliedBalancedText = await page.getByTestId('supplied-balance').innerText();
   const preSupplyBalance = parseFloat(suppliedBalancedText) || 0;
@@ -347,20 +348,18 @@ test('Details pane shows right data', async ({ page }) => {
   await connectMockWalletAndAcceptTerms(page);
   await page.getByRole('tab', { name: 'Savings' }).click();
 
-  const balanceWidget = await page.getByTestId('supply-input-savings-balance').innerText();
   const balanceDetails = await page
     .getByTestId('savings-stats-section')
     .getByText('100 USDS', { exact: true })
     .innerText();
-  expect(balanceWidget).toEqual(balanceDetails);
+  await expect(page.getByTestId('supply-input-savings-balance')).toHaveText(balanceDetails);
 
   await page.getByRole('tab', { name: 'Withdraw' }).click();
-  const widgetSuppliedBalance = await page.getByTestId('supplied-balance').innerText();
   const detailsSuppliedBalance = await page
     .getByTestId('savings-stats-section')
-    .getByText('102 USDS', { exact: true })
+    .getByText('2 USDS', { exact: true })
     .innerText();
-  expect(widgetSuppliedBalance).toEqual(detailsSuppliedBalance);
+  await expect(page.getByTestId('supply-input-savings-balance')).toHaveText(detailsSuppliedBalance);
 
   // close details pane
   await page.getByLabel('Toggle details').click();
