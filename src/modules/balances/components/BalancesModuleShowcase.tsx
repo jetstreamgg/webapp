@@ -19,7 +19,8 @@ export function BalancesModuleShowcase() {
             module={t`Rewards`}
             title={t`Access rewards without giving up control`}
             className="bg-sky-blue"
-            hide={isBase}
+            notAvailable={isBase}
+            soon={isBase}
           />
           <ModuleCard
             intent={Intent.SAVINGS_INTENT}
@@ -34,7 +35,7 @@ export function BalancesModuleShowcase() {
         module={t`Upgrade`}
         title={t`Upgrade your DAI and MKR`}
         className="bg-sky-pink"
-        hide={isBase}
+        notAvailable={isBase}
       />
       <ModuleCard
         intent={Intent.TRADE_INTENT}

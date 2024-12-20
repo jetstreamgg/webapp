@@ -14,7 +14,8 @@ import { QueryParams } from '@/lib/constants';
 
 enum ChainModalVariant {
   default = 'default',
-  widget = 'widget'
+  widget = 'widget',
+  wrapper = 'wrapper'
 }
 
 const getChainIcon = (chainId: number, className?: string) =>
@@ -28,12 +29,14 @@ export function ChainModal({
   showLabel = true,
   showDropdownIcon = true,
   variant = 'default',
-  dataTestId = 'chain-modal-trigger'
+  dataTestId = 'chain-modal-trigger',
+  children
 }: {
   showLabel?: boolean;
   showDropdownIcon?: boolean;
-  variant?: 'default' | 'widget';
+  variant?: 'default' | 'widget' | 'wrapper';
   dataTestId?: string;
+  children?: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
   const chainId = useChainId();
@@ -62,19 +65,23 @@ export function ChainModal({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant="connect"
-          className={cn(
-            'flex items-center gap-1.5 px-2.5 py-2',
-            variant === ChainModalVariant.widget &&
-              'border-transparent bg-primary bg-blend-overlay px-[9px] hover:border-transparent hover:bg-white/10 hover:[--gradient-opacity:100%] focus:border-transparent focus:bg-white/15 focus:[--gradient-opacity:100%]'
-          )}
-          data-testid={dataTestId}
-        >
-          {getChainIcon(chainId, variant === ChainModalVariant.widget ? 'h-5 w-5' : 'h-6 w-6')}
-          {showLabel && <Text className="text-text">{client?.chain.name || 'Ethereum'}</Text>}
-          {showDropdownIcon && <ChevronDown width={14} height={14} />}
-        </Button>
+        {variant === ChainModalVariant.wrapper ? (
+          <button className="h-full w-full">{children}</button>
+        ) : (
+          <Button
+            variant="connect"
+            className={cn(
+              'flex items-center gap-1.5 px-2.5 py-2',
+              variant === ChainModalVariant.widget &&
+                'border-transparent bg-primary bg-blend-overlay px-[9px] hover:border-transparent hover:bg-white/10 hover:[--gradient-opacity:100%] focus:border-transparent focus:bg-white/15 focus:[--gradient-opacity:100%]'
+            )}
+            data-testid={dataTestId}
+          >
+            {getChainIcon(chainId, variant === ChainModalVariant.widget ? 'h-5 w-5' : 'h-6 w-6')}
+            {showLabel && <Text className="text-text">{client?.chain.name || 'Ethereum'}</Text>}
+            {showDropdownIcon && <ChevronDown width={14} height={14} />}
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent
         className="bg-containerDark p-4 sm:min-w-[400px] sm:p-4"
