@@ -1,12 +1,12 @@
 import { StatsCard } from '@/modules/ui/components/StatsCard';
 import { t } from '@lingui/macro';
 import { Text } from '@/modules/layout/components/Typography';
-import { useSavingsData } from '@jetstreamgg/hooks';
-import { formatBigInt } from '@jetstreamgg/utils';
+import { useOverallSkyData } from '@jetstreamgg/hooks';
+import { formatNumber } from '@jetstreamgg/utils';
 
 export function SkySavingsRatePoolCard(): React.ReactElement {
-  const { data, isLoading, error } = useSavingsData();
-  const tvl = data && formatBigInt(data.savingsTvl);
+  const { data, isLoading, error } = useOverallSkyData();
+  const tvl = data && formatNumber(parseFloat(data.totalSavingsTvl));
 
   return (
     <StatsCard

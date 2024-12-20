@@ -11,11 +11,15 @@ import { mapIntentToQueryParam } from '@/lib/constants';
 import { Intent } from '@/lib/enums';
 import { Link } from 'react-router-dom';
 
+const JAN_01_2025_TIMESTAMP = new Date('January 1, 2025').getTime();
+
 export const BoostedRewardsClaim = () => {
   const { address } = useAccount();
   const { data, isLoading, error } = useBoostedRewards(address);
 
-  if (!address || !data || error || !data?.has_rewards || data?.is_claimed) {
+  const isBoostedRewardsPeriodEnded = new Date().getTime() >= JAN_01_2025_TIMESTAMP;
+
+  if (!address || !data || error || !data?.has_rewards || data?.is_claimed || isBoostedRewardsPeriodEnded) {
     return null;
   }
 
