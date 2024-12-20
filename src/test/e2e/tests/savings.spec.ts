@@ -359,7 +359,7 @@ test('Details pane shows right data', async ({ page }) => {
     .getByTestId('savings-stats-section')
     .getByText('2 USDS', { exact: true })
     .innerText();
-  await expect(page.getByTestId('supply-input-savings-balance')).toHaveText(detailsSuppliedBalance);
+  await expect(page.getByTestId('supplied-balance')).toHaveText(detailsSuppliedBalance);
 
   // close details pane
   await page.getByLabel('Toggle details').click();
