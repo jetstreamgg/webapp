@@ -11,8 +11,11 @@ import { GradientShapeCard } from './GradientShapeCard';
 export const AboutSUsds = () => {
   const chainId = useChainId();
 
-  // @ts-expect-error
-  const sUsdsEtherscanLink = getEtherscanLink(chainId, sUsdsAddress[chainId], 'address');
+  const sUsdsEtherscanLink = getEtherscanLink(
+    chainId,
+    sUsdsAddress[chainId as keyof typeof sUsdsAddress],
+    'address'
+  );
 
   return (
     <GradientShapeCard

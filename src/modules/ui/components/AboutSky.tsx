@@ -11,8 +11,11 @@ import { GradientShapeCard } from './GradientShapeCard';
 export const AboutSky = () => {
   const chainId = useChainId();
 
-  // @ts-expect-error
-  const skyEtherscanLink = getEtherscanLink(chainId, skyAddress[chainId], 'address');
+  const skyEtherscanLink = getEtherscanLink(
+    chainId,
+    skyAddress[chainId as keyof typeof skyAddress],
+    'address'
+  );
 
   return (
     <GradientShapeCard

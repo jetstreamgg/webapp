@@ -36,8 +36,8 @@ const forkVnet = async (displayName: string) => {
   console.log('Virtual Testnet successfully forked');
 
   const adminEndpoint = testnetData.connectivityConfig.endpoints.find(
-    //@ts-ignore
-    x => (x.description === 'admin endpoint' || x.description === 'unlocked endpoint') as boolean
+    (x: { description: string }) =>
+      (x.description === 'admin endpoint' || x.description === 'unlocked endpoint') as boolean
   );
 
   if (!adminEndpoint) {

@@ -16,7 +16,7 @@
     "prettier-no-files": "prettier --config .prettierrc --write",
     "lint-no-files": "eslint --fix --ext .tsx,.ts,.js,.jsx",
     "prettier": "pnpm prettier-no-files src tests",
-    "lint": "pnpm lint-no-files src tests",
+    "lint": "pnpm lint-no-files src scripts",
     "test": "vitest run",
     "e2e": "pnpm vnet:delete:all && pnpm vnet:fork && playwright test --trace on",
     "e2e:no-vnet": "playwright test --trace on",
