@@ -61,7 +61,7 @@ export function UpgradeHistory() {
 
   const memoizedDates = useMemo(() => upgradeHistory?.map(u => u.blockTimestamp), [upgradeHistory]);
 
-  const formattedDates = useFormatDates(memoizedDates, i18n.locale, 'MMMM d, yyyy, h:mm a');
+  const formattedDates = useFormatDates(memoizedDates, i18n.locale, 'MMM d, yyyy, h:mm a');
 
   // map upgrade history to rows
   const history = upgradeHistory?.map((row, index) => {

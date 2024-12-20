@@ -1,4 +1,10 @@
-import { TradeWidget, TxStatus, TradeAction, WidgetStateChangeParams } from '@jetstreamgg/widgets';
+import {
+  TradeWidget,
+  TxStatus,
+  TradeAction,
+  WidgetStateChangeParams,
+  BaseTradeWidget
+} from '@jetstreamgg/widgets';
 import { defaultConfig } from '../../config/default-config';
 import { useChainId, useConfig as useWagmiConfig } from 'wagmi';
 import { QueryParams, REFRESH_DELAY } from '@/lib/constants';
@@ -11,6 +17,7 @@ import { useSearchParams } from 'react-router-dom';
 import { updateParamsFromTransaction } from '@/modules/utils/updateParamsFromTransaction';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
+import { isBaseChainId } from '@jetstreamgg/utils';
 
 export function TradeWidgetPane(sharedProps: SharedProps) {
   const chainId = useChainId();
@@ -22,6 +29,8 @@ export function TradeWidgetPane(sharedProps: SharedProps) {
   const [, setSearchParams] = useSearchParams();
 
   const { onNavigate, setCustomHref, customNavLabel, setCustomNavLabel } = useCustomNavigation();
+
+  const isBase = isBaseChainId(chainId);
 
   const onTradeWidgetStateChange = ({
     hash,
@@ -88,8 +97,10 @@ export function TradeWidgetPane(sharedProps: SharedProps) {
     [linkedActionConfig]
   );
 
+  const Widget = isBase ? BaseTradeWidget : TradeWidget;
+
   return (
-    <TradeWidget
+    <Widget
       key={externalWidgetState.timestamp}
       {...sharedProps}
       disallowedPairs={defaultConfig.tradeDisallowedPairs}

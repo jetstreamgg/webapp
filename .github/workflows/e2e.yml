@@ -27,7 +27,7 @@ jobs:
           # - test: trade-2.spec
           #   vnet: true
           - test: landing.spec
-            vnet: false
+            vnet: true
           - test: la-u-r.spec
             vnet: true
           - test: la-u-s.spec

@@ -59,7 +59,7 @@ export function SealHistory({ index }: { index?: number }) {
   const { i18n } = useLingui();
 
   const memoizedDates = useMemo(() => sealHistory?.map(s => s.blockTimestamp), [sealHistory]);
-  const formattedDates = useFormatDates(memoizedDates, i18n.locale, 'MMMM d, yyyy, h:mm a');
+  const formattedDates = useFormatDates(memoizedDates, i18n.locale, 'MMM d, yyyy, h:mm a');
 
   // map seal history to rows
   const history = sealHistory?.map((s, index) => ({
