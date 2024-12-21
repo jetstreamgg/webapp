@@ -120,6 +120,7 @@ export function ChainModal({
           <Button
             variant="outline"
             className="absolute right-4 top-[26px] h-8 w-8 rounded-full p-0 text-text"
+            data-testid="chain-modal-close"
           >
             <Close />
           </Button>

@@ -36,6 +36,8 @@ jobs:
           #   vnet: true
           # - test: la-s-s.spec
           #   vnet: true
+          - test: base-savings.spec
+            vnet: true
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
