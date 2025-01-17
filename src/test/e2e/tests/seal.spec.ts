@@ -160,7 +160,7 @@ test('Lock MKR, select rewards, select delegate, and open position', async ({ pa
   await page.getByRole('button', { name: 'Continue' }).click();
 
   // Switch to SKY
-  await page.getByRole('button', { name: 'MKR', exact: true }).click();
+  await page.getByTestId('view-sky-mkr-button').click();
 
   await expect(page.getByTestId('supply-first-input-lse-balance')).toHaveText('100,000,000 SKY');
 
@@ -168,8 +168,8 @@ test('Lock MKR, select rewards, select delegate, and open position', async ({ pa
   await page.getByTestId('supply-first-input-lse').fill('100000000');
   await page.getByTestId('borrow-input-lse').fill('38000');
 
-  await expect(page.getByTestId('widget-button')).toBeEnabled();
-  await page.getByTestId('widget-button').click();
+  await expect(page.getByTestId('widget-button').first()).toBeEnabled();
+  await page.getByTestId('widget-button').first().click();
 
   // select rewards
   await expect(page.getByText('Choose your reward token')).toBeVisible();
