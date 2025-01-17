@@ -1,7 +1,7 @@
 import { writeFile } from 'fs/promises';
 
-// corresponds to `e2e-testing-sep-30-fork` https://dashboard.tenderly.co/jetstreamgg/jetstream/testnet/9a9cfd7a-09bc-4b7f-8d75-03a0c3027267
-const MAINNET_FORK_CONTAINER_ID = '9a9cfd7a-09bc-4b7f-8d75-03a0c3027267';
+// corresponds to `new-e2e-testing-mainnet-sep-30-0-fork` https://dashboard.tenderly.co/jetstreamgg/jetstream/testnet/d043abc9-3d93-40f6-bbb5-b8f28a365a41
+const MAINNET_FORK_CONTAINER_ID = 'd043abc9-3d93-40f6-bbb5-b8f28a365a41';
 // corresponds to `base_dec_9_jetstream` https://dashboard.tenderly.co/jetstreamgg/jetstream/testnet/d382d976-02a4-4fc2-a9ba-db43a1602719
 const BASE_FORK_CONTAINER_ID = 'd382d976-02a4-4fc2-a9ba-db43a1602719';
 
