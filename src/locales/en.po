@@ -115,6 +115,10 @@ msgstr ""
 msgid "An error occurred while submitting your signature. Please ensure your wallet is connected to either Ethereum mainnet or Base and try again. If the issue persists, reach out for assistance in the official <0>Sky Discord</0>"
 msgstr ""
 
+#: src/modules/chat/components/ChatInput.tsx
+msgid "Ask another question"
+msgstr ""
+
 #: src/lib/constants.ts
 msgid "balances"
 msgstr ""
@@ -261,12 +265,36 @@ msgstr ""
 msgid "Go to {0} {module}"
 msgstr ""
 
+#: src/modules/app/hooks/useChatNotification.tsx
+msgid "Hi, {CHATBOT_NAME} here!"
+msgstr ""
+
+#: src/modules/chat/context/ChatContext.tsx
+msgid "Hi, {CHATBOT_NAME} here! How can I help you today?"
+msgstr ""
+
+#: src/components/ChatSwitcher.tsx
+msgid "Hide chat"
+msgstr ""
+
 #: src/components/DetailsSwitcher.tsx
 msgid "Hide details"
 msgstr ""
 
+#: src/modules/app/hooks/useChatNotification.tsx
+msgid "How can I help you today?"
+msgstr ""
+
 #: src/modules/ui/components/TermsModal.tsx
 msgid "Legal Terms"
+msgstr ""
+
+#: src/modules/chat/components/ChatBubble.tsx
+msgid "Let me think"
+msgstr ""
+
+#: src/modules/chat/components/ResponseModifierRow.tsx
+msgid "Longer"
 msgstr ""
 
 #: src/modules/app/hooks/useNotification.tsx
@@ -321,6 +349,14 @@ msgstr ""
 #: src/modules/auth/components/UnauthorizedPage.tsx
 #: src/modules/ui/components/TermsModal.tsx
 msgid "Please wait..."
+msgstr ""
+
+#: src/modules/chat/components/ResponseModifierRow.tsx
+msgid "Please, extend your answer"
+msgstr ""
+
+#: src/modules/chat/components/ResponseModifierRow.tsx
+msgid "Please, simplify your answer"
 msgstr ""
 
 #: src/modules/rewards/components/RewardsTokenInfo.tsx
@@ -420,6 +456,10 @@ msgstr ""
 msgid "Select reward"
 msgstr ""
 
+#: src/modules/chat/components/ResponseModifierRow.tsx
+msgid "Simpler"
+msgstr ""
+
 #: src/modules/ui/components/AboutSky.tsx
 msgid "SKY"
 msgstr ""
@@ -476,6 +516,14 @@ msgstr ""
 msgid "Soon on Base"
 msgstr ""
 
+#: src/modules/chat/hooks/useSendMessage.tsx
+msgid "Sorry, something went wrong. Can you repeat your question?"
+msgstr ""
+
+#: src/modules/app/hooks/useChatNotification.tsx
+msgid "Start Chatting"
+msgstr ""
+
 #: src/modules/ui/hooks/useUserSuggestedActions.ts
 msgid "Start getting rewards"
 msgstr ""
@@ -487,6 +535,10 @@ msgstr ""
 #: src/modules/app/hooks/useActionForToken.tsx
 #: src/modules/app/hooks/useActionForToken.tsx
 msgid "Start saving with your {formattedBalance} {upperSymbol}"
+msgstr ""
+
+#: src/modules/chat/components/StopGeneratingButton.tsx
+msgid "Stop generating"
 msgstr ""
 
 #: src/modules/rewards/components/RewardsTokenInfo.tsx
@@ -646,6 +698,14 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
+#: src/modules/chat/components/ChatBubble.tsx
+msgid "Typing"
+msgstr ""
+
+#: src/modules/chat/hooks/useSendMessage.tsx
+msgid "typing..."
+msgstr ""
+
 #: src/modules/ui/components/BalanceCards.tsx
 msgid "Unable to fetch balance"
 msgstr ""
@@ -734,6 +794,10 @@ msgstr ""
 
 #: src/modules/rewards/components/RewardsBalanceDetails.tsx
 msgid "USDS supplied"
+msgstr ""
+
+#: src/components/ChatSwitcher.tsx
+msgid "View chat"
 msgstr ""
 
 #: src/modules/ui/components/AboutCle.tsx
